@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"build.sh"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "clean",
+			"type": "shell",
+			"command": "sh",
+			"args": [
+				"clean.sh"
+			],
+			"group": "build",
+			"problemMatcher": []
+		}
+	]
+}
