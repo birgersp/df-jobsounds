@@ -28,11 +28,13 @@ Sound Sound_Mixer::load_sound(String_Ref filename)
 void Sound_Mixer::play(const Sound &sound)
 {
 	Mix_Chunk *chunk = get_mix_chunk(sound);
-	int channel = Mix_PlayChannel(-1, chunk, 1);
+	int channel = Mix_PlayChannel(-1, chunk, 0);
 	if (channel == -1)
-		throw functionException("Error playing sound " + to_string(sound.id) + ": " + Mix_GetError());
+		throw functionException("Error playing sound " + std::to_string(sound.id) + ": " + Mix_GetError());
 }
 
-Mix_Chunk Sound_Mixer::*get_mix_chunk(const Sound &sound)
+Mix_Chunk *Sound_Mixer::get_mix_chunk(const Sound &sound)
 {
+	Mix_Chunk *chunk = mix_chunks.at(sound.id);
+	return chunk;
 }
