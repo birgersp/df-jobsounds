@@ -8,7 +8,8 @@ LIBRARIES := \
 	-lmingw32 \
 	-lSDL2main \
 	-lSDL2 \
-	-lSDL2_mixer
+	-lSDL2_mixer \
+	-lws2_32
 
 CC_FLAGS += -Wpedantic -Wfatal-errors
 
