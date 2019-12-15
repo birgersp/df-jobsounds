@@ -1,42 +1,31 @@
-#include <unistd.h>
+#include "TCP_Connection.h"
+#include "util.h"
+
 #include <cpputil/errorhandling.hpp>
 
-#include "TCP_Connection.h"
-
-TCP_Connection::TCP_Connection(int fd) : file_descriptor(fd)
+TCP_Connection::TCP_Connection(SOCKET socket) : socket(socket)
 {
 }
 
 TCP_Connection::~TCP_Connection()
 {
-    close(file_descriptor);
+    closesocket(socket);
 }
 
 std::string TCP_Connection::readline()
 {
     std::string read_buffer;
-
-    int n;
-    char character;
-    bool reading = true;
-    while (reading)
+    int result;
+    do
     {
-        n = read(file_descriptor, &character, 1);
-        if (n < 0)
-            throw functionErrorException();
-        else if (n > 0)
-        {
-            if (character == '\n')
-                reading = false;
-            else
-                read_buffer += character;
-        }
-        else
-        {
-            throw functionErrorException();
-            reading = false;
-        }
-    }
+        int result = recv(socket, buffer, buffer_length, 0);
+        std::cout << result << std::endl;
+        read_buffer += std::string(buffer);
+    } while (result > 0);
 
+    if (result < 0)
+    {
+        throw functionException("Receive failed: " + get_wsa_error_string());
+    }
     return read_buffer;
 }

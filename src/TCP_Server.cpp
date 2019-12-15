@@ -1,9 +1,5 @@
 #include "TCP_Server.h"
 
-#ifdef OS_WINDOWS
-#include <ws2tcpip.h>
-#endif
-
 #include <cpputil/errorhandling.hpp>
 #include <cstring>
 #include <chrono>
@@ -12,14 +8,15 @@
 #include <string>
 #include "util.h"
 
-TCP_Server::TCP_Server() : socket_fd(-1)
+TCP_Server::TCP_Server()
 {
 }
 
 TCP_Server::~TCP_Server()
 {
     if (is_bound())
-        close(socket_fd);
+        closesocket(listen_socket);
+    WSACleanup();
 }
 
 void TCP_Server::bind(int port)
@@ -45,17 +42,15 @@ void TCP_Server::bind(int port)
     struct addrinfo *result = NULL;
     if (getaddrinfo(NULL, "56730", &hints, &result) != 0)
     {
-        WSACleanup();
         throw functionException("getaddrinfo failed: " + get_wsa_error_string());
     }
 
     // Create a SOCKET for connecting to server
-    SOCKET listen_socket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+    listen_socket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (listen_socket == INVALID_SOCKET)
     {
         std::string error = get_wsa_error_string();
         freeaddrinfo(result);
-        WSACleanup();
         throw functionException("socket failed: " + error);
     }
 
@@ -63,35 +58,20 @@ void TCP_Server::bind(int port)
     {
         std::string error = get_wsa_error_string();
         freeaddrinfo(result);
-        closesocket(listen_socket);
-        WSACleanup();
         throw functionException("bind failed: " + error);
     }
-
     freeaddrinfo(result);
 
     if (listen(listen_socket, SOMAXCONN) == SOCKET_ERROR)
     {
         std::string error = get_wsa_error_string();
-        closesocket(listen_socket);
-        WSACleanup();
         throw functionException("listen failed: " + error);
     }
-
-    if (accept(listen_socket, NULL, NULL) == INVALID_SOCKET)
-    {
-        std::string error = get_wsa_error_string();
-        closesocket(listen_socket);
-        WSACleanup();
-        throw functionException("accept failed: " + error);
-    }
-
-    SOCKET client_socket;
 }
 
 bool TCP_Server::is_bound()
 {
-    return socket_fd >= 0;
+    return listen_socket != INVALID_SOCKET;
 }
 
 TCP_Connection TCP_Server::accept_connection()
@@ -99,10 +79,13 @@ TCP_Connection TCP_Server::accept_connection()
     if (!is_bound())
         throw functionException("Socket not bound");
 
-    // Accepting connection
-    socklen_t clilen;
-    clilen = sizeof(socket_address);
+    if (accept(listen_socket, NULL, NULL) == INVALID_SOCKET)
+    {
+        std::string error = get_wsa_error_string();
+        throw functionException("accept failed: " + error);
+    }
 
-    int newsockfd = accept(socket_fd, (struct sockaddr *)&socket_address, &clilen);
-    return TCP_Connection(newsockfd);
+    SOCKET client_socket;
+
+    return TCP_Connection(client_socket);
 }

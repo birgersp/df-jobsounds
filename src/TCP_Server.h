@@ -3,14 +3,9 @@
 
 #include "TCP_Connection.h"
 #include "core.h"
-
 #include <string>
-
-#ifdef OS_WINDOWS
 #include <Winsock2.h>
-#else
-#include <arpa/inet.h>
-#endif
+#include <ws2tcpip.h>
 
 class TCP_Server
 {
@@ -25,7 +20,7 @@ public:
 
 private:
     struct sockaddr_in socket_address;
-    int socket_fd;
+    SOCKET listen_socket = INVALID_SOCKET;
 };
 
 #endif // TCP_SERVER_H

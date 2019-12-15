@@ -24,7 +24,10 @@ int main(int argc, char **argv)
         server.bind(56730);
         print_line("waiting for connection");
         auto connection = server.accept_connection();
-        print_line("yeah!");
+        print_line("connection established");
+        print_line("reading msg from client");
+        std::string msg = connection.readline();
+        std::cout << "from client: " << msg << std::endl;
     }
     catch (Exception e)
     {
