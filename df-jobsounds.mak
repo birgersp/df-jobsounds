@@ -4,9 +4,11 @@ INCLUDES := \
 	-Isrc
 
 LIBRARIES := \
+	-L/mingw64/lib \
+	-lmingw32 \
+	-lSDL2main \
+	-lSDL2 \
 	-lSDL2_mixer
-
-LD_FLAGS += `sdl2-config --libs`
 
 CC_FLAGS += -Wpedantic -Wfatal-errors
 
