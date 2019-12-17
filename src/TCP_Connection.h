@@ -9,14 +9,16 @@
 class TCP_Connection
 {
 public:
-    TCP_Connection(SOCKET socket);
-    ~TCP_Connection();
-    std::string readline();
+	TCP_Connection(SOCKET socket);
+	~TCP_Connection();
+	void readline(Mutable_String_Ref string);
+	bool is_closed() const;
 
 private:
-    const SOCKET socket;
-    static const uint buffer_length = 512;
-    char buffer[buffer_length];
+	const SOCKET socket;
+	bool connection_open = true;
+	static const uint BUFFER_SIZE = 128;
+	char buffer[BUFFER_SIZE];
 };
 
 #endif /* TCP_CONNECTION_H */
