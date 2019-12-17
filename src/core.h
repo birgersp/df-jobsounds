@@ -12,7 +12,8 @@
 #define print_line(value) std::cout << value << std::endl;
 
 typedef const char *C_String;
-typedef const std::string &String_Ref;
-typedef std::string &Mutable_String_Ref;
+typedef const std::string& String_Ref;
+typedef std::string& Mutable_String_Ref;
+typedef const cpputil::Exception& Exception;
 
 #endif /* CORE_H */

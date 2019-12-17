@@ -11,11 +11,11 @@ class Sound_Mixer
 public:
 	void initialize();
 	Sound load_sound(String_Ref filename);
-	void play(const Sound &sound);
+	void play(const Sound& sound);
 
 private:
 	std::vector<Mix_Chunk *> mix_chunks;
-	Mix_Chunk *get_mix_chunk(const Sound &sound);
+	Mix_Chunk *get_mix_chunk(const Sound& sound);
 };
 
 #endif

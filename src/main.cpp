@@ -10,8 +10,6 @@
 #include <cpputil/timing.hpp>
 #include <cpputil/errorhandling.hpp>
 
-typedef const cpputil::Exception &Exception;
-
 int main(int argc, char **argv)
 {
 	try
