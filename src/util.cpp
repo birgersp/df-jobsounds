@@ -22,9 +22,9 @@ std::string get_wsa_error_string()
 
 ulong get_millisec()
 {
-	timeval timeValue;
-	gettimeofday(&timeValue, 0);
-	ulong millisecs_1 = timeValue.tv_sec * 1000;
-	ulong rest = timeValue.tv_usec / 1000;
+	timeval time_value;
+	gettimeofday(&time_value, 0);
+	ulong millisecs_1 = time_value.tv_sec * 1000;
+	ulong rest = time_value.tv_usec / 1000;
 	return millisecs_1 + rest;
 }
