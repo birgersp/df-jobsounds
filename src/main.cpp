@@ -1,6 +1,7 @@
 #include "core.h"
 #include "Sound_Mixer.h"
 #include "TCP_Server.h"
+#include "util.h"
 
 #ifdef OS_WINDOWS
 #include <winsock2.h>
@@ -25,10 +26,13 @@ int main(int argc, char **argv)
 		print_line("waiting for connection");
 		auto connection = server.accept_connection();
 		print_line("connection established");
-		print_line("reading msg from client");
 		std::string msg;
-		connection.readline(msg);
-		std::cout << "from client: " << msg << std::endl;
+		while (not connection.is_closed())
+		{
+			msg.clear();
+			connection.readline(msg);
+			std::cout << get_millisec() << ": " << msg << std::endl;
+		}
 	}
 	catch (Exception e)
 	{
