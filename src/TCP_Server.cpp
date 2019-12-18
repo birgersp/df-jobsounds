@@ -1,4 +1,4 @@
-#include "TCP_Server.h"
+#include "Socket_Server.h"
 
 #include <cpputil/errorhandling.hpp>
 #include <cstring>
@@ -8,18 +8,18 @@
 #include <string>
 #include "util.h"
 
-TCP_Server::TCP_Server()
+Socket_Server::Socket_Server()
 {
 }
 
-TCP_Server::~TCP_Server()
+Socket_Server::~Socket_Server()
 {
 	if (is_bound())
 		closesocket(listen_socket);
 	WSACleanup();
 }
 
-void TCP_Server::bind(int port)
+void Socket_Server::bind(int port)
 {
 	if (is_bound())
 		throw functionException("Already bound");
@@ -69,12 +69,12 @@ void TCP_Server::bind(int port)
 	}
 }
 
-bool TCP_Server::is_bound()
+bool Socket_Server::is_bound()
 {
 	return listen_socket != INVALID_SOCKET;
 }
 
-TCP_Connection TCP_Server::accept_connection()
+TCP_Connection Socket_Server::accept_connection()
 {
 	if (!is_bound())
 		throw functionException("Socket not bound");

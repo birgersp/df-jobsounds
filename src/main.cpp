@@ -1,6 +1,6 @@
 #include "core.h"
 #include "Sound_Mixer.h"
-#include "TCP_Server.h"
+#include "Socket_Server.h"
 #include "util.h"
 
 #ifdef OS_WINDOWS
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 		Sound sound = sound_mixer.load_sound("bin/dig.wav");
 		sound_mixer.play(sound);
 
-		TCP_Server server;
+		Socket_Server server;
 		server.bind(56730);
 		print_line("waiting for connection");
 		auto connection = server.accept_connection();
