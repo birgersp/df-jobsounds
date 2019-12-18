@@ -1,18 +1,18 @@
-#include "TCP_Connection.h"
+#include "Socket_Connection.h"
 #include "util.h"
 
 #include <cpputil/errorhandling.hpp>
 
-TCP_Connection::TCP_Connection(SOCKET socket) : socket(socket)
+Socket_Connection::Socket_Connection(SOCKET socket) : socket(socket)
 {
 }
 
-TCP_Connection::~TCP_Connection()
+Socket_Connection::~Socket_Connection()
 {
 	closesocket(socket);
 }
 
-void TCP_Connection::readline(Mutable_String_Ref string)
+void Socket_Connection::readline(Mutable_String_Ref string)
 {
 	if (is_closed())
 		throw functionException("Connection closed");
@@ -38,7 +38,7 @@ void TCP_Connection::readline(Mutable_String_Ref string)
 	}
 }
 
-bool TCP_Connection::is_closed() const
+bool Socket_Connection::is_closed() const
 {
 	return !connection_open;
 }

@@ -1,7 +1,7 @@
 #ifndef SOCKET_SERVER_H
 #define SOCKET_SERVER_H
 
-#include "TCP_Connection.h"
+#include "Socket_Connection.h"
 #include "core.h"
 #include <string>
 #include <Winsock2.h>
@@ -16,7 +16,7 @@ public:
     void bind(int port);
     bool is_bound();
 
-    TCP_Connection accept_connection();
+    Socket_Connection accept_connection();
 
 private:
     struct sockaddr_in socket_address;

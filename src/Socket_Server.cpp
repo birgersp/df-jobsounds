@@ -74,7 +74,7 @@ bool Socket_Server::is_bound()
 	return listen_socket != INVALID_SOCKET;
 }
 
-TCP_Connection Socket_Server::accept_connection()
+Socket_Connection Socket_Server::accept_connection()
 {
 	if (!is_bound())
 		throw functionException("Socket not bound");
@@ -86,5 +86,5 @@ TCP_Connection Socket_Server::accept_connection()
 		throw functionException("accept failed: " + error);
 	}
 
-	return TCP_Connection(client_socket);
+	return Socket_Connection(client_socket);
 }

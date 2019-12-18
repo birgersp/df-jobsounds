@@ -1,16 +1,16 @@
-#ifndef TCP_CONNECTION_H
-#define TCP_CONNECTION_H
+#ifndef SOCKET_CONNECTION_H
+#define SOCKET_CONNECTION_H
 
 #include "core.h"
 
 #include <winsock2.h>
 #include <string>
 
-class TCP_Connection
+class Socket_Connection
 {
 public:
-	TCP_Connection(SOCKET socket);
-	~TCP_Connection();
+	Socket_Connection(SOCKET socket);
+	~Socket_Connection();
 	void readline(Mutable_String_Ref string);
 	bool is_closed() const;
 
@@ -21,4 +21,4 @@ private:
 	char buffer[BUFFER_SIZE];
 };
 
-#endif /* TCP_CONNECTION_H */
+#endif /* SOCKET_CONNECTION_H */
