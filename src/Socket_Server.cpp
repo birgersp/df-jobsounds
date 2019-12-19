@@ -40,7 +40,9 @@ void Socket_Server::bind(int port)
 
 	// Resolve the server address and port
 	struct addrinfo *result = NULL;
-	if (getaddrinfo(NULL, "56730", &hints, &result) != 0)
+	char port_string[6];
+	itoa(port, port_string, 10);
+	if (getaddrinfo(NULL, port_string, &hints, &result) != 0)
 	{
 		throw functionException("getaddrinfo failed: " + get_wsa_error_string());
 	}
