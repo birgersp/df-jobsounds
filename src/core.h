@@ -13,8 +13,12 @@
 #define print_line(value) std::cout << value << std::endl;
 
 typedef const char *C_String;
+typedef std::string String;
 typedef const std::string& String_Ref;
 typedef std::string& Mutable_String_Ref;
 typedef const cpputil::Exception& Exception;
+
+template <typename T>
+using Vector = typename std::vector<T>;
 
 #endif /* CORE_H */

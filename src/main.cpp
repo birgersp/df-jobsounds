@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	}
 	catch (Exception e)
 	{
-		std::cerr << e.toString() << std::endl;
+		std::cerr << e.to_string() << std::endl;
 	}
 
 	return 0;

@@ -15,7 +15,7 @@ Socket_Connection::~Socket_Connection()
 void Socket_Connection::readline(Mutable_String_Ref string)
 {
 	if (is_closed())
-		throw functionException("Connection closed");
+		throw function_exception("Connection closed");
 
 	int n;
 	bool done = false;
@@ -23,7 +23,7 @@ void Socket_Connection::readline(Mutable_String_Ref string)
 	{
 		n = recv(socket, buffer, BUFFER_SIZE, 0);
 		if (n < 0)
-			throw functionException("Read error: " + get_wsa_error_string());
+			throw function_exception("Read error: " + get_wsa_error_string());
 		else if (n == 0)
 		{
 			connection_open = false;
