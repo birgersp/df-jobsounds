@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #include "Jobsounds_app.h"
 
 void Jobsounds_app::run(const Vector<String>& arguments)

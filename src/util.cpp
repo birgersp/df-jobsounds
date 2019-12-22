@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #include "util.h"
 #include <winsock2.h>
 #include <sys/time.h>

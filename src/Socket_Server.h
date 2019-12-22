@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #ifndef SOCKET_SERVER_H
 #define SOCKET_SERVER_H
 

@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #ifndef SOUNDMIXER_H
 #define SOUNDMIXER_H
 

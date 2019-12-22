@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #include "Socket_Server.h"
 
 #include <cpputil/errorhandling.hpp>

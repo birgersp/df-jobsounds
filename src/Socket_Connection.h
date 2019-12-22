@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #ifndef SOCKET_CONNECTION_H
 #define SOCKET_CONNECTION_H
 

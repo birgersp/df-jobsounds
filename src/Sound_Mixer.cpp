@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #include <cpputil/errorhandling.hpp>
 #include <SDL2/SDL.h>
 

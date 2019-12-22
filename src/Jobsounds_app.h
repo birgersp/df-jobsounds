@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #ifndef JOBSOUNDS_APP_H
 #define JOBSOUNDS_APP_H
 

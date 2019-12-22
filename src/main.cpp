@@ -1,3 +1,8 @@
+/**
+ * @author birgersp
+ * https://github.com/birgersp
+ */
+
 #include "core.h"
 #include "Sound_Mixer.h"
 #include "Socket_Server.h"
