@@ -7,10 +7,15 @@
 #define UTIL_H
 
 #include "core.h"
+#include <cpputil/printing.hpp>
 
-#include <string>
-
-std::string get_wsa_error_string();
+String get_wsa_error_string();
 ulong get_millisec();
+
+template <typename T>
+void print_line(T data)
+{
+	cpputil::print_line(data);
+}
 
 #endif

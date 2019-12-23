@@ -7,7 +7,7 @@
 #include <winsock2.h>
 #include <sys/time.h>
 
-std::string get_wsa_error_string()
+String get_wsa_error_string()
 {
 	wchar_t *buffer = NULL;
 	FormatMessageW(
@@ -20,7 +20,7 @@ std::string get_wsa_error_string()
 				NULL
 				);
 	std::wstring ws(buffer);
-	std::string string(ws.begin(), ws.end());
+	String string(ws.begin(), ws.end());
 	LocalFree(buffer);
 	return string;
 }

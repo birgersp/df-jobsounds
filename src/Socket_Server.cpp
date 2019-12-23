@@ -56,14 +56,14 @@ void Socket_Server::bind(int port)
 	listen_socket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 	if (listen_socket == INVALID_SOCKET)
 	{
-		std::string error = get_wsa_error_string();
+		String error = get_wsa_error_string();
 		freeaddrinfo(result);
 		throw function_exception("socket failed: " + error);
 	}
 
 	if (::bind(listen_socket, result->ai_addr, (int) result->ai_addrlen) == SOCKET_ERROR)
 	{
-		std::string error = get_wsa_error_string();
+		String error = get_wsa_error_string();
 		freeaddrinfo(result);
 		throw function_exception("bind failed: " + error);
 	}
@@ -71,7 +71,7 @@ void Socket_Server::bind(int port)
 
 	if (listen(listen_socket, SOMAXCONN) == SOCKET_ERROR)
 	{
-		std::string error = get_wsa_error_string();
+		String error = get_wsa_error_string();
 		throw function_exception("listen failed: " + error);
 	}
 }
@@ -89,7 +89,7 @@ Socket_Connection Socket_Server::accept_connection()
 	SOCKET client_socket = accept(listen_socket, NULL, NULL);
 	if (client_socket == INVALID_SOCKET)
 	{
-		std::string error = get_wsa_error_string();
+		String error = get_wsa_error_string();
 		throw function_exception("accept failed: " + error);
 	}
 

@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 		print_line("waiting for connection");
 		auto connection = server.accept_connection();
 		print_line("connection established");
-		std::string msg;
+		String msg;
 		while (not connection.is_closed())
 		{
 			msg.clear();

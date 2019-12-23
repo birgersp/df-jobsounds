@@ -36,7 +36,7 @@ void Socket_Connection::readline(Mutable_string_ref string)
 		}
 		else
 		{
-			string += std::string(buffer, n);
+			string += String(buffer, n);
 			if (buffer[n - 1] == '\0')
 				done = true;
 		}
