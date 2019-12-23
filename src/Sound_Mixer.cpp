@@ -19,7 +19,7 @@ void Sound_Mixer::initialize()
 	Mix_AllocateChannels(32);
 }
 
-Sound Sound_Mixer::load_sound(String_Ref filename)
+Sound Sound_Mixer::load_sound(String_ref filename)
 {
 	Mix_Chunk *chunk = Mix_LoadWAV(filename.c_str());
 	if (chunk == NULL)

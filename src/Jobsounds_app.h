@@ -19,7 +19,9 @@ private:
 
 	uint port = 56730;
 	Socket_Server server;
-	void parse_argument(String_Ref argument);
+	void parse_argument(String_ref argument);
+	void process_connection(Socket_Connection& connection);
+	void parse_message(String_ref message);
 
 };
 

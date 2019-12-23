@@ -14,7 +14,7 @@ class Sound_Mixer
 {
 public:
 	void initialize();
-	Sound load_sound(String_Ref filename);
+	Sound load_sound(String_ref filename);
 	void play(const Sound& sound);
 
 private:

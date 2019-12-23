@@ -17,7 +17,7 @@ Socket_Connection::~Socket_Connection()
 	closesocket(socket);
 }
 
-void Socket_Connection::readline(Mutable_String_Ref string)
+void Socket_Connection::readline(Mutable_string_ref string)
 {
 	if (is_closed())
 		throw function_exception("Connection closed");

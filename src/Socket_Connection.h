@@ -16,7 +16,7 @@ class Socket_Connection
 public:
 	Socket_Connection(SOCKET socket);
 	~Socket_Connection();
-	void readline(Mutable_String_Ref string);
+	void readline(Mutable_string_ref string);
 	bool is_closed() const;
 
 private:
