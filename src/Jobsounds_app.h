@@ -8,6 +8,9 @@
 
 #include "core.h"
 #include "Socket_Server.h"
+#include "Sound.h"
+#include "Sound_interval_manager.h"
+#include "Sound_Mixer.h"
 
 class Jobsounds_app
 {
@@ -19,6 +22,9 @@ private:
 
 	uint port = 56730;
 	Socket_Server server;
+	cpputil::Map<int, Sound> job_sounds;
+	Sound_interval_manager inteval_manager;
+	Sound_Mixer sound_mixer;
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);
 	void parse_message(String_ref message);
