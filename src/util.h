@@ -11,11 +11,21 @@
 
 String get_wsa_error_string();
 ulong get_millisec();
+Vector<String> get_filenames_in_dir(String_ref dirname);
 
 template <typename T>
 void print_line(T data)
 {
 	cpputil::print_line(data);
+}
+
+template <typename T>
+void print_vector(Vector<T> vector)
+{
+	for (T element : vector)
+	{
+		print_line(element);
+	}
 }
 
 #endif

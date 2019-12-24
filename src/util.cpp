@@ -6,6 +6,7 @@
 #include "util.h"
 #include <winsock2.h>
 #include <sys/time.h>
+#include <filesystem>
 
 String get_wsa_error_string()
 {
@@ -32,4 +33,22 @@ ulong get_millisec()
 	ulong millisecs_1 = time_value.tv_sec * 1000;
 	ulong rest = time_value.tv_usec / 1000;
 	return millisecs_1 + rest;
+}
+
+Vector<String> get_filenames_in_dir(String_ref dirname)
+{
+	Vector<String> result;
+	try
+	{
+		auto iterator = std::filesystem::directory_iterator(dirname);
+		for (auto entry : iterator)
+		{
+			result.push_back(entry.path().u8string());
+		}
+	}
+	catch (std::filesystem::__cxx11::filesystem_error error)
+	{
+		throw function_exception("Cannot list files in directory: " + dirname);
+	}
+	return result;
 }
