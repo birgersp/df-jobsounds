@@ -28,4 +28,10 @@ void print_vector(Vector<T> vector)
 	}
 }
 
+template <typename T>
+String to_string(T data)
+{
+	return std::to_string(data);
+}
+
 #endif

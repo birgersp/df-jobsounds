@@ -6,6 +6,7 @@
 #include "Jobsounds_app.h"
 #include "util.h"
 #include <cpputil/string.hpp>
+#include <cpputil/timing.hpp>
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
@@ -55,10 +56,12 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		int job_id = std::stoi(comma_split[0]);
 		String dirname = comma_split[1];
 		int min_time = std::stoi(comma_split[2]);
+		print_line("Loading sounds for job: " + to_string(job_id));
 		Vector<String> filenames = get_filenames_in_dir(dirname);
 		Vector<Sound> sounds;
 		for (String_ref filename : filenames)
 		{
+			print_line("Loading file: " + filename);
 			Sound sound = sound_mixer.load_sound(filename);
 			sounds.push_back(sound);
 		}
@@ -107,7 +110,12 @@ void Jobsounds_app::process_unit_job(int unit_id, int job_id)
 
 void Jobsounds_app::run_demo()
 {
-
+	print_line("Running demo for job id: " + to_string(demo.job_id));
+	while (true)
+	{
+		process_unit_job(0, demo.job_id);
+		cpputil::sleep_mS(20);
+	}
 }
 
 void Jobsounds_app::run_server()
