@@ -28,13 +28,19 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		}
 	}
 
+	if (job_sounds.size() == 0)
+	{
+		print_line("Warning: no sounds loaded");
+	}
+
 	if (demo.enable)
 	{
 		run_demo();
 	}
-
-	// TODO: run server
-	return;
+	else
+	{
+		run_server();
+	}
 }
 
 void Jobsounds_app::parse_argument(String_ref argument)
@@ -58,6 +64,10 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		int job_id = parse_int(comma_split[0]);
 		String dirname = comma_split[1];
 		int min_time = parse_int(comma_split[2]);
+		if (job_sounds.get(job_id) != nullptr)
+		{
+			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded.");
+		}
 		print_line("Loading sounds for job: " + to_string(job_id));
 		Vector<String> filenames = get_filenames_in_dir(dirname);
 		Vector<Sound> sounds;
