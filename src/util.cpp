@@ -8,6 +8,8 @@
 #include <sys/time.h>
 #include <filesystem>
 
+namespace fs = std::filesystem;
+
 String get_wsa_error_string()
 {
 	wchar_t *buffer = NULL;
@@ -40,13 +42,13 @@ Vector<String> get_filenames_in_dir(String_ref dirname)
 	Vector<String> result;
 	try
 	{
-		auto iterator = std::filesystem::directory_iterator(dirname);
+		auto iterator = fs::directory_iterator(dirname);
 		for (auto entry : iterator)
 		{
 			result.push_back(entry.path().u8string());
 		}
 	}
-	catch (std::filesystem::__cxx11::filesystem_error error)
+	catch (fs::__cxx11::filesystem_error error)
 	{
 		throw function_exception("Cannot list files in directory: " + dirname);
 	}
@@ -65,4 +67,10 @@ int parse_int(String_ref string)
 		throw function_exception("Cannot parse to integer: " + string);
 	}
 	return result;
+}
+
+bool dir_exists(String_ref dir)
+{
+	auto status = fs::status(dir);
+	return fs::is_directory(status);
 }
