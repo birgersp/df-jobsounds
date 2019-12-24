@@ -20,6 +20,12 @@ public:
 
 private:
 
+	struct
+	{
+		bool enable = false;
+		int job_id;
+	} demo;
+
 	uint port = 56730;
 	Socket_Server server;
 	cpputil::Map<int, Vector<Sound>> job_sounds;
@@ -29,6 +35,8 @@ private:
 	void process_connection(Socket_Connection& connection);
 	void parse_message(String_ref message);
 	void process_unit_job(int unit_id, int job_id);
+	void run_demo();
+	void run_server();
 
 };
 
