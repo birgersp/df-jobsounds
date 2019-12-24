@@ -14,6 +14,7 @@ ulong get_millisec();
 Vector<String> get_filenames_in_dir(String_ref dirname);
 int parse_int(String_ref string);
 bool dir_exists(String_ref dir);
+char last_char_of(String_ref string);
 
 template <typename T>
 void print_line(T data)

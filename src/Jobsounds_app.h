@@ -28,6 +28,9 @@ private:
 
 	uint port = 56730;
 	String config_filename = "config.txt";
+	String dfhack_scripts_dir;
+	String df_dir = ".";
+	static const Vector<String> default_script_locations;
 	Socket_Server server;
 	cpputil::Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
@@ -39,6 +42,7 @@ private:
 	void process_unit_job(int unit_id, int job_id);
 	void run_demo();
 	void run_server();
+	void install_script();
 
 };
 

@@ -10,6 +10,11 @@
 #include <time.h>
 #include <cpputil/file.hpp>
 
+const Vector<String> Jobsounds_app::default_script_locations = {
+	"../hack/scripts",
+	"hack/scripts"
+};
+
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
 	sound_mixer.initialize();
@@ -35,6 +40,8 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 			throw function_exception("Invalid argument: " + argument + ". " + exception.get_reason());
 		}
 	}
+
+	install_script();
 
 	if (job_sounds.size() == 0)
 	{
@@ -171,5 +178,31 @@ void Jobsounds_app::run_server()
 	{
 		auto connection = server.accept_connection();
 		process_connection(connection);
+	}
+}
+
+void Jobsounds_app::install_script()
+{
+	print_line("Searching for scripts directory.");
+	String dir_prefix = df_dir;
+	if (last_char_of(dir_prefix) != '/')
+		dir_prefix += '/';
+	print_line("Scanning directories:");
+	if (dfhack_scripts_dir == "")
+	{
+		for (String dir : default_script_locations)
+		{
+			String possible_dir = dir_prefix + dir;
+			print_line(" " + possible_dir);
+			if (dir_exists(possible_dir))
+			{
+				dfhack_scripts_dir = possible_dir;
+				break;
+			}
+		}
+	}
+	if (dfhack_scripts_dir == "")
+	{
+		throw function_exception("Script directory not found.");
 	}
 }

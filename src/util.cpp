@@ -74,3 +74,10 @@ bool dir_exists(String_ref dir)
 	auto status = fs::status(dir);
 	return fs::is_directory(status);
 }
+
+char last_char_of(String_ref string)
+{
+	if (string.size() == 0)
+		throw function_exception("String is empty");
+	return (string[string.size() - 1]);
+}
