@@ -1,0 +1,10 @@
+# DF Jobsounds configuration file
+# Lines beginning with # are ignored
+# Syntax: jobid,folder,timeout
+# Example: 68,sounds/build,900
+# For job 68 (building), load sound files from "sounds/build", use 900 millisec between sounds
+
+3,sounds/dig,600
+8,sounds/dig,600
+68,sounds/build,900
+9,sounds/chop,1000

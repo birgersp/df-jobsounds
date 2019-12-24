@@ -27,10 +27,12 @@ private:
 	} demo;
 
 	uint port = 56730;
+	String config_filename = "config.txt";
 	Socket_Server server;
 	cpputil::Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
+	void load_config();
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);
 	void parse_message(String_ref message);

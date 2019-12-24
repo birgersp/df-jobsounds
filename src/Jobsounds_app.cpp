@@ -8,13 +8,21 @@
 #include <cpputil/string.hpp>
 #include <cpputil/timing.hpp>
 #include <time.h>
+#include <cpputil/file.hpp>
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
 	sound_mixer.initialize();
 	srand(time(nullptr));
 
-	// TODO: load config file
+	try
+	{
+		load_config();
+	}
+	catch (const cpputil::Exception& exception)
+	{
+		throw function_exception("Failed to load configuration: " + config_filename + ". " + exception.get_reason());
+	}
 
 	for (String_ref argument : arguments)
 	{
@@ -43,6 +51,28 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 	}
 }
 
+void Jobsounds_app::load_config()
+{
+	Vector<String> lines = cpputil::read_file_lines(config_filename);
+	uint line_index = 0;
+	for (String_ref line : lines)
+	{
+		line_index++;
+		if (line.size() > 0)
+		{
+			if (line[0] != '#')
+				try
+				{
+					parse_argument(line);
+				}
+				catch (const cpputil::Exception& exception)
+				{
+					throw function_exception("Line " + to_string(line_index) + ". " + exception.get_reason());
+				}
+		}
+	}
+}
+
 void Jobsounds_app::parse_argument(String_ref argument)
 {
 	Vector<String> equals_split = cpputil::split_string(argument, '=');
@@ -54,6 +84,10 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		{
 			demo.enable = true;
 			demo.job_id = parse_int(value);
+		}
+		else
+		{
+			throw function_exception("Unrecognized key: " + key);
 		}
 		return;
 	}
