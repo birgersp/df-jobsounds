@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	}
 	catch (Exception e)
 	{
-		std::cerr << e.to_string() << std::endl;
+		std::cerr << e.get_reason() << std::endl;
 	}
 
 	return 0;
