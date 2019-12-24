@@ -20,13 +20,14 @@ class Sound_interval_manager
 public:
 
 	void set_sound_interval(int job_id, uint time_ms);
-	bool sound_should_play(int dwarf_id, int job_id);
-	bool sound_should_play(int dwarf_id, int job_id, ulong timestamp);
-	void set_event(int dwarf_id, int job_id, ulong timestamp);
+	bool sound_should_play(int unit_id, int job_id);
+	bool sound_should_play(int unit_id, int job_id, ulong timestamp);
+	void set_event(int unit_id, int job_id, ulong timestamp);
 
 private:
 
-	cpputil::Map<int, Sound_event> dwarf_sound_events;
+	cpputil::Map<int, Sound_event> unit_sound_events;
+	cpputil::Map<int, uint> sound_min_time;
 
 };
 
