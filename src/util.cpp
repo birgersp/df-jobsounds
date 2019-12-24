@@ -52,3 +52,17 @@ Vector<String> get_filenames_in_dir(String_ref dirname)
 	}
 	return result;
 }
+
+int parse_int(String_ref string)
+{
+	int result;
+	try
+	{
+		result = std::stoi(string);
+	}
+	catch (std::invalid_argument error)
+	{
+		throw function_exception("Cannot parse to integer: " + string);
+	}
+	return result;
+}

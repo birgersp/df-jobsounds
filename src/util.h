@@ -12,6 +12,7 @@
 String get_wsa_error_string();
 ulong get_millisec();
 Vector<String> get_filenames_in_dir(String_ref dirname);
+int parse_int(String_ref string);
 
 template <typename T>
 void print_line(T data)

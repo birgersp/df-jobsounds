@@ -7,10 +7,12 @@
 #include "util.h"
 #include <cpputil/string.hpp>
 #include <cpputil/timing.hpp>
+#include <time.h>
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
 	sound_mixer.initialize();
+	srand(time(nullptr));
 
 	// TODO: load config file
 
@@ -45,7 +47,7 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		if (key == "demo")
 		{
 			demo.enable = true;
-			demo.job_id = std::stoi(value);
+			demo.job_id = parse_int(value);
 		}
 		return;
 	}
@@ -53,15 +55,15 @@ void Jobsounds_app::parse_argument(String_ref argument)
 	Vector<String> comma_split = cpputil::split_string(argument, ',');
 	if (comma_split.size() == 3)
 	{
-		int job_id = std::stoi(comma_split[0]);
+		int job_id = parse_int(comma_split[0]);
 		String dirname = comma_split[1];
-		int min_time = std::stoi(comma_split[2]);
+		int min_time = parse_int(comma_split[2]);
 		print_line("Loading sounds for job: " + to_string(job_id));
 		Vector<String> filenames = get_filenames_in_dir(dirname);
 		Vector<Sound> sounds;
 		for (String_ref filename : filenames)
 		{
-			print_line("Loading file: " + filename);
+			print_line(" " + filename);
 			Sound sound = sound_mixer.load_sound(filename);
 			sounds.push_back(sound);
 		}
@@ -87,8 +89,8 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 void Jobsounds_app::parse_message(String_ref message)
 {
 	Vector<String> split = cpputil::split_string(message, ' ');
-	int unit_id = std::stoi(split[0]);
-	int job_id = std::stoi(split[1]);
+	int unit_id = parse_int(split[0]);
+	int job_id = parse_int(split[1]);
 	process_unit_job(unit_id, job_id);
 }
 
@@ -101,8 +103,8 @@ void Jobsounds_app::process_unit_job(int unit_id, int job_id)
 	bool should_play = inteval_manager.sound_should_play(unit_id, job_id, timestamp);
 	if (should_play)
 	{
-		// TODO: get random sound in vector
-		const Sound& sound = (*sounds)[0];
+		uint random_index = rand() % sounds->size();
+		const Sound& sound = (*sounds)[random_index];
 		sound_mixer.play(sound);
 		inteval_manager.set_event(unit_id, job_id, timestamp);
 	}
