@@ -7,6 +7,7 @@
 #include "Sound_Mixer.h"
 #include "Socket_Server.h"
 #include "util.h"
+#include "Jobsounds_app.h"
 
 #ifdef OS_WINDOWS
 #include <winsock2.h>
@@ -19,23 +20,11 @@ int main(int argc, char **argv)
 {
 	try
 	{
-		Sound_Mixer sound_mixer;
-		sound_mixer.initialize();
-		Sound sound = sound_mixer.load_sound("bin/dig.wav");
-		sound_mixer.play(sound);
-
-		Socket_Server server;
-		server.bind(56730);
-		print_line("waiting for connection");
-		auto connection = server.accept_connection();
-		print_line("connection established");
-		String msg;
-		while (not connection.is_closed())
-		{
-			msg.clear();
-			connection.readline(msg);
-			std::cout << get_millisec() << ": " << msg << std::endl;
-		}
+		Vector<String> arguments;
+		for (int i = 1; i < argc; i++)
+			arguments.push_back(String(argv[i]));
+		Jobsounds_app app;
+		app.run(arguments);
 	}
 	catch (Exception e)
 	{

@@ -22,12 +22,13 @@ private:
 
 	uint port = 56730;
 	Socket_Server server;
-	cpputil::Map<int, Sound> job_sounds;
+	cpputil::Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);
 	void parse_message(String_ref message);
+	void process_unit_job(int unit_id, int job_id);
 
 };
 
