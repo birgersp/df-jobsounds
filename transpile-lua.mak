@@ -1,4 +1,4 @@
-src/jobsounds.h: lua/jobsounds.lua
-	sh transpile-to-constant.sh lua/jobsounds.lua src
+%.h: lua/jobsounds.lua
+	sh transpile-to-constant.sh $< src
 
-transpile-lua: src/jobounds.h
+transpile-lua: src/jobsounds_lua_transpiled.h
