@@ -180,10 +180,13 @@ void Jobsounds_app::run_demo()
 
 void Jobsounds_app::run_server()
 {
+	print_line("Starting server.");
 	server.bind(port);
 	while (true)
 	{
+		print_line("Waiting for a connection.");
 		auto connection = server.accept_connection();
+		print_line("Connection established.");
 		process_connection(connection);
 	}
 }
