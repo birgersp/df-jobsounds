@@ -10,8 +10,8 @@
 #include <cpputil/file.hpp>
 
 const Vector<String> Script_installer::default_script_locations = {
-	"../hack/scripts",
-	"hack/scripts"
+	"hack/scripts",
+	"../hack/scripts"
 };
 
 bool Script_installer::check_script_exists()

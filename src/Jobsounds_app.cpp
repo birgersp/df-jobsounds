@@ -91,6 +91,10 @@ void Jobsounds_app::parse_argument(String_ref argument)
 			demo.enable = true;
 			demo.job_id = parse_int(value);
 		}
+		else if (key == "dfdir")
+		{
+			script_installer.df_dir = value;
+		}
 		else
 		{
 			throw function_exception("Unrecognized key: " + key);
