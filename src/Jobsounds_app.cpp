@@ -11,11 +11,6 @@
 #include <cpputil/file.hpp>
 #include "jobsounds_lua_transpiled.h"
 
-const Vector<String> Jobsounds_app::default_script_locations = {
-	"../hack/scripts",
-	"hack/scripts"
-};
-
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
 	sound_mixer.initialize();
@@ -47,12 +42,9 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		print_line("Warning: no sounds loaded");
 	}
 
-	get_scripts_dir();
-	script_path = dfhack_scripts_dir + "/jobsounds.lua";
-	if (not file_exists(script_path))
+	if (not script_installer.check_script_exists())
 	{
-		print_line("Script not found, installing script.");
-		install_script();
+		script_installer.install_script();
 	}
 
 	if (demo.enable)
@@ -188,41 +180,5 @@ void Jobsounds_app::run_server()
 		auto connection = server.accept_connection();
 		print_line("Connection established.");
 		process_connection(connection);
-	}
-}
-
-void Jobsounds_app::install_script()
-{
-	std::ofstream file;
-	file.open(script_path, std::ios::out);
-	if (file.is_open() == false)
-		throw function_exception("Failed to open file");
-	file << JOBSOUNDS_LUA_TRANSPILED;
-	file.close();
-}
-
-void Jobsounds_app::get_scripts_dir()
-{
-	print_line("Searching for scripts directory.");
-	String dir_prefix = df_dir;
-	if (last_char_of(dir_prefix) != '/')
-		dir_prefix += '/';
-	print_line("Scanning directories:");
-	if (dfhack_scripts_dir == "")
-	{
-		for (String dir : default_script_locations)
-		{
-			String possible_dir = dir_prefix + dir;
-			print_line(" " + possible_dir);
-			if (dir_exists(possible_dir))
-			{
-				dfhack_scripts_dir = possible_dir;
-				break;
-			}
-		}
-	}
-	if (dfhack_scripts_dir == "")
-	{
-		throw function_exception("Script directory not found.");
 	}
 }

@@ -11,6 +11,7 @@
 #include "Sound.h"
 #include "Sound_interval_manager.h"
 #include "Sound_Mixer.h"
+#include "Script_installer.h"
 
 class Jobsounds_app
 {
@@ -28,14 +29,12 @@ private:
 
 	uint port = 56730;
 	String config_filename = "config.txt";
-	String dfhack_scripts_dir;
-	String df_dir = ".";
-	String script_path;
-	static const Vector<String> default_script_locations;
 	Socket_Server server;
 	cpputil::Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
+	Script_installer script_installer;
+
 	void load_config();
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);
@@ -43,8 +42,6 @@ private:
 	void process_unit_job(int unit_id, int job_id);
 	void run_demo();
 	void run_server();
-	void install_script();
-	void get_scripts_dir();
 
 };
 
