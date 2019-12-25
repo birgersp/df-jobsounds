@@ -4,6 +4,7 @@
  */
 
 #include <cpputil/string.hpp>
+#include <cpputil/errorhandling.hpp>
 
 #include "Arg_parser.h"
 
@@ -23,18 +24,20 @@ void Arg_parser::add_setting(String keyword, Setting_callback callback, String d
 	settings.put(keyword, setting_obj);
 }
 
-bool Arg_parser::parse_as_command(String_ref string)
+void Arg_parser::parse_as_command(String_ref string)
 {
 	Command* command = commands.get(string);
 	if (command != nullptr)
 	{
 		command->callback();
-		return true;
 	}
-	return false;
+	else
+	{
+		throw function_exception("Unrecognized command: " + string);
+	}
 }
 
-bool Arg_parser::parse_as_setting(String_ref string)
+void Arg_parser::parse_as_setting(String_ref string)
 {
 	Vector<String> equals_split = cpputil::split_string(string, '=');
 	if (equals_split.size() == 2)
@@ -43,8 +46,14 @@ bool Arg_parser::parse_as_setting(String_ref string)
 		if (setting != nullptr)
 		{
 			setting->callback(equals_split[1]);
-			return true;
+		}
+		else
+		{
+			throw function_exception("Unrecognized keyword: " + equals_split[0]);
 		}
 	}
-	return false;
+	else
+	{
+		throw function_exception("Invalid syntax.");
+	}
 }

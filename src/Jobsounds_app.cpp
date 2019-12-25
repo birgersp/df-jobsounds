@@ -11,6 +11,30 @@
 #include <cpputil/file.hpp>
 #include "jobsounds_lua_transpiled.h"
 
+Jobsounds_app::Jobsounds_app()
+{
+	arg_parser.add_command("install-script", [this]()
+	{
+		script_installer.install_script();
+	}, "Create jobsounds script in DFHack directory, overwrite it if it already exists. If the script does not exist, it will be created even if this command is not invoked.");
+
+	arg_parser.add_command("print-jobs", [this]()
+	{
+		print_jobs = true;
+	}, "Print the unit and job id when such data is received from Dwarf Fortress.");
+
+	arg_parser.add_setting("demo", [this](String_ref string)
+	{
+		demo.enable = true;
+		demo.job_id = parse_int(string);
+	}, "Loop a job to test how the sounds loaded for that job sounds. Example: demo=68.");
+
+	arg_parser.add_setting("dfdir", [this](String_ref string)
+	{
+		script_installer.df_dir = string;
+	}, "Explicitly set the Dwarf Fortress directory. Use this if you did not install jobsounds in the Dwarf Fortress folder. Example: dfdir=\"C:\\Dwarf Fortress\\\".");
+}
+
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
 	sound_mixer.initialize();
@@ -81,41 +105,13 @@ void Jobsounds_app::load_config()
 
 void Jobsounds_app::parse_argument(String_ref argument)
 {
-	if (argument == "install-script")
+	if (str_contains(argument, ','))
 	{
-		script_installer.install_script();
-		return;
-	}
-	else if (argument == "print-jobs")
-	{
-		print_jobs = true;
-		return;
-	}
-
-	Vector<String> equals_split = cpputil::split_string(argument, '=');
-	if (equals_split.size() == 2)
-	{
-		String_ref key = equals_split[0];
-		String_ref value = equals_split[1];
-		if (key == "demo")
+		Vector<String> comma_split = cpputil::split_string(argument, ',');
+		if (comma_split.size() != 3)
 		{
-			demo.enable = true;
-			demo.job_id = parse_int(value);
+			throw function_exception("Invalid syntax.");
 		}
-		else if (key == "dfdir")
-		{
-			script_installer.df_dir = value;
-		}
-		else
-		{
-			throw function_exception("Unrecognized key: " + key);
-		}
-		return;
-	}
-
-	Vector<String> comma_split = cpputil::split_string(argument, ',');
-	if (comma_split.size() == 3)
-	{
 		int job_id = parse_int(comma_split[0]);
 		String dirname = comma_split[1];
 		int min_time = parse_int(comma_split[2]);
@@ -134,10 +130,15 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		}
 		job_sounds.put(job_id, sounds);
 		inteval_manager.set_sound_interval(job_id, min_time);
-		return;
 	}
-
-	throw function_exception("Invalid syntax.");
+	else if (str_contains(argument, '='))
+	{
+		arg_parser.parse_as_setting(argument);
+	}
+	else
+	{
+		arg_parser.parse_as_command(argument);
+	}
 }
 
 void Jobsounds_app::process_connection(Socket_Connection& connection)

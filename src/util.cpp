@@ -87,3 +87,8 @@ char last_char_of(String_ref string)
 		throw function_exception("String is empty");
 	return (string[string.size() - 1]);
 }
+
+bool str_contains(String_ref string, char character)
+{
+	return string.find(character) != -1;
+}

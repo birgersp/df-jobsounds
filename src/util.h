@@ -16,6 +16,7 @@ int parse_int(String_ref string);
 bool dir_exists(String_ref dir);
 bool file_exists(String_ref path);
 char last_char_of(String_ref string);
+bool str_contains(String_ref string, char character);
 
 template <typename T>
 void print_line(T data)

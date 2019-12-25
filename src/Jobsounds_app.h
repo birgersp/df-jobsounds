@@ -12,11 +12,13 @@
 #include "Sound_interval_manager.h"
 #include "Sound_Mixer.h"
 #include "Script_installer.h"
+#include "Arg_parser.h"
 
 class Jobsounds_app
 {
 public:
 
+	Jobsounds_app();
 	void run(const Vector<String>& arguments);
 
 private:
@@ -35,6 +37,7 @@ private:
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
 	Script_installer script_installer;
+	Arg_parser arg_parser;
 
 	void load_config();
 	void parse_argument(String_ref argument);

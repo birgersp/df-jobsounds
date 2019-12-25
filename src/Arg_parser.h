@@ -31,8 +31,8 @@ public:
 
 	void add_command(String command, Command_callback callback, String description = "");
 	void add_setting(String keyword, Setting_callback callback, String description = "");
-	bool parse_as_command(String_ref string);
-	bool parse_as_setting(String_ref string);
+	void parse_as_command(String_ref string);
+	void parse_as_setting(String_ref string);
 
 private:
 
