@@ -75,6 +75,12 @@ bool dir_exists(String_ref dir)
 	return fs::is_directory(status);
 }
 
+bool file_exists(String_ref path)
+{
+	auto status = fs::status(path);
+	return fs::is_regular_file(status);
+}
+
 char last_char_of(String_ref string)
 {
 	if (string.size() == 0)

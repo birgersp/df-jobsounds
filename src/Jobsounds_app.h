@@ -30,6 +30,7 @@ private:
 	String config_filename = "config.txt";
 	String dfhack_scripts_dir;
 	String df_dir = ".";
+	String script_path;
 	static const Vector<String> default_script_locations;
 	Socket_Server server;
 	cpputil::Map<int, Vector<Sound>> job_sounds;
@@ -43,6 +44,7 @@ private:
 	void run_demo();
 	void run_server();
 	void install_script();
+	void get_scripts_dir();
 
 };
 

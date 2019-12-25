@@ -9,6 +9,7 @@
 #include <cpputil/timing.hpp>
 #include <time.h>
 #include <cpputil/file.hpp>
+#include "jobsounds.h"
 
 const Vector<String> Jobsounds_app::default_script_locations = {
 	"../hack/scripts",
@@ -41,11 +42,17 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		}
 	}
 
-	install_script();
-
 	if (job_sounds.size() == 0)
 	{
 		print_line("Warning: no sounds loaded");
+	}
+
+	get_scripts_dir();
+	script_path = dfhack_scripts_dir + "/jobsounds.lua";
+	if (not file_exists(script_path))
+	{
+		print_line("Script not found, installing script.");
+		install_script();
 	}
 
 	if (demo.enable)
@@ -182,6 +189,16 @@ void Jobsounds_app::run_server()
 }
 
 void Jobsounds_app::install_script()
+{
+	std::ofstream file;
+	file.open(script_path, std::ios::out);
+	if (file.is_open() == false)
+		throw function_exception("Failed to open file");
+	file << JOBSOUNDS_SOURCE;
+	file.close();
+}
+
+void Jobsounds_app::get_scripts_dir()
 {
 	print_line("Searching for scripts directory.");
 	String dir_prefix = df_dir;
