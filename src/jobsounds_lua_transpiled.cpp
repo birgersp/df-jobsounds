@@ -88,5 +88,5 @@ const char* JOBSOUNDS_LUA_TRANSPILED =
 "	dfhack.timeout(15, 'ticks', loop)\n"
 "end\n"
 "\n"
-"start()\n";
-
+"start()\n"
+;

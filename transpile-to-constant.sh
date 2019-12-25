@@ -31,4 +31,3 @@ cat $TARGET_FILE \
 | sed 's/$/\\n"/' \
 >> $DESTINATION_SOURCE
 echo ";" >> $DESTINATION_SOURCE
-echo "" >> $DESTINATION_SOURCE
