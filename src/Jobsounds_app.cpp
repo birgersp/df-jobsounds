@@ -81,6 +81,12 @@ void Jobsounds_app::load_config()
 
 void Jobsounds_app::parse_argument(String_ref argument)
 {
+	if (argument == "install-script")
+	{
+		script_installer.install_script();
+		return;
+	}
+
 	Vector<String> equals_split = cpputil::split_string(argument, '=');
 	if (equals_split.size() == 2)
 	{
@@ -136,7 +142,14 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 	{
 		message.clear();
 		connection.readline(message);
-		parse_message(message);
+		try
+		{
+			parse_message(message);
+		}
+		catch (Exception e)
+		{
+			throw function_exception("Failed to parse message: " + message + ". " + e.get_reason());
+		}
 	}
 }
 
