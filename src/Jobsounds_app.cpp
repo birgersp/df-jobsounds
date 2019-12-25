@@ -9,7 +9,7 @@
 #include <cpputil/timing.hpp>
 #include <time.h>
 #include <cpputil/file.hpp>
-#include "jobsounds.h"
+#include "jobsounds_lua_transpiled.h"
 
 const Vector<String> Jobsounds_app::default_script_locations = {
 	"../hack/scripts",
@@ -197,7 +197,7 @@ void Jobsounds_app::install_script()
 	file.open(script_path, std::ios::out);
 	if (file.is_open() == false)
 		throw function_exception("Failed to open file");
-	file << JOBSOUNDS_SOURCE;
+	file << JOBSOUNDS_LUA_TRANSPILED;
 	file.close();
 }
 

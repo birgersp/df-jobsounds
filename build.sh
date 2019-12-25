@@ -1,6 +1,6 @@
 set -e
 
-make -f luasource.mak
+make -f transpile-lua.mak
 make -f df-jobsounds.mak -j8 test
 
 ./bin/df-jobsounds-test
