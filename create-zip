@@ -1,0 +1,16 @@
+#!/bin/bash
+
+current_dir=`pwd`
+cd bin
+dlls=`find -name "*.dll"`
+licenses=`find -name "*LICENSE*"`
+mkdir -p jobsounds
+cp $dlls jobsounds
+mkdir -p jobsounds/licenses
+cp $licenses jobsounds/licenses
+cp -r sounds/ jobsounds/sounds
+cp df-jobsounds.exe jobsounds/jobsounds.exe
+cp ../config.txt jobsounds
+cp ../readme.md jobsounds
+/c/Program\ Files/7-Zip/7z.exe u jobsounds.zip jobsounds/*
+cd $current_dir
