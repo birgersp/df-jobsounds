@@ -239,4 +239,6 @@ void Jobsounds_app::print_help_text()
 	{
 		print_line(" " + key + ": " + setting.description);
 	});
+	print_line("");
+	print_line("Sounds can be configurate with comma-separated values, either as arguments or in the configuration file. See \"" + config_filename + "\" for details.");
 }
