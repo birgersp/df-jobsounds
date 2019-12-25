@@ -46,6 +46,7 @@ private:
 	void process_unit_job(int unit_id, int job_id);
 	void run_demo();
 	void run_server();
+	void print_help_text();
 
 };
 

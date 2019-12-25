@@ -13,6 +13,12 @@
 
 Jobsounds_app::Jobsounds_app()
 {
+	arg_parser.add_command("help", [this]()
+	{
+		print_help_text();
+		throw function_exception("Aborted.");
+	}, "View help text.");
+
 	arg_parser.add_command("install-script", [this]()
 	{
 		script_installer.install_script();
@@ -37,6 +43,15 @@ Jobsounds_app::Jobsounds_app()
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
+	if (arguments.size() == 1)
+	{
+		if (arguments[0] == "help")
+		{
+			print_help_text();
+			return;
+		}
+	}
+
 	sound_mixer.initialize();
 	srand(time(nullptr));
 
@@ -206,4 +221,22 @@ void Jobsounds_app::run_server()
 		print_line("Connection established.");
 		process_connection(connection);
 	}
+}
+
+void Jobsounds_app::print_help_text()
+{
+	print_line("Use the \"" + config_filename + "\" file to configurate.");
+	print_line("Configuration settings and commands can also be passed as arguments.");
+	print_line("");
+	print_line("Available commands:");
+	arg_parser.commands.foreach([](String_ref key, const Arg_parser::Command & command)
+	{
+		print_line(" " + key + ": " + command.description);
+	});
+	print_line("");
+	print_line("Available settings:");
+	arg_parser.settings.foreach([](String_ref key, const Arg_parser::Setting & setting)
+	{
+		print_line(" " + key + ": " + setting.description);
+	});
 }
