@@ -27,6 +27,7 @@ private:
 		int job_id;
 	} demo;
 
+	bool print_jobs = false;
 	uint port = 56730;
 	String config_filename = "config.txt";
 	Socket_Server server;

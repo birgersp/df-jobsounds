@@ -86,6 +86,11 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		script_installer.install_script();
 		return;
 	}
+	else if (argument == "print-jobs")
+	{
+		print_jobs = true;
+		return;
+	}
 
 	Vector<String> equals_split = cpputil::split_string(argument, '=');
 	if (equals_split.size() == 2)
@@ -158,6 +163,8 @@ void Jobsounds_app::parse_message(String_ref message)
 	Vector<String> split = cpputil::split_string(message, ' ');
 	int unit_id = parse_int(split[0]);
 	int job_id = parse_int(split[1]);
+	if (print_jobs)
+		print_line("unit_id=" + split[0] + ", job_id=" + split[1]);
 	process_unit_job(unit_id, job_id);
 }
 
