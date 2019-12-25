@@ -74,10 +74,6 @@ local function checkDwarves()
 end
 
 function loop()
-	if (os.time() - timeLastSend > 2) then
-		send("null\0")
-	end
-
 	if (stop == true) then
 		dfhack.println(scriptName.." stopped")
 		return
