@@ -3,7 +3,9 @@
 1. [Download the latest zip](https://github.com/birgersp/df-jobsounds/releases/latest)
 2. Put the `jobsounds` folder in your Dwarf Fortress directory
 3. Run the executable (jobsounds.exe on Windows)
+![cmd image](https://i.imgur.com/Sc2U4Rv.png)
 4. In dfhack terminal, invoke command `jobsounds`
+![dfhack image](https://i.imgur.com/dKXbSwZ.png)
 
 A script in dfhack will now try to connect to jobsounds. If you run into problems, please let me know.
 
