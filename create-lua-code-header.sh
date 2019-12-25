@@ -25,6 +25,7 @@ touch $DESTINATION_SOURCE
 echo $COMMENT > $DESTINATION_SOURCE
 echo "const char* "$CONSTANT_NAME" =" >> $DESTINATION_SOURCE
 cat $TARGET_FILE \
+| sed 's/\\/\\\\/g' \
 | sed 's/"/\\"/g' \
 | sed 's/^/"/' \
 | sed 's/$/\\n"/' \
