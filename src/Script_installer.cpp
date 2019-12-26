@@ -31,7 +31,7 @@ void Script_installer::install_script()
 
 void Script_installer::find_script_path()
 {
-	print_line("Searching for scripts directory.");
+	print_line("Searching for scripts directory");
 	String dir_prefix = df_dir;
 	if (last_char_of(dir_prefix) != '/')
 		dir_prefix += '/';
@@ -48,7 +48,7 @@ void Script_installer::find_script_path()
 	}
 	if (dfhack_scripts_dir == "")
 	{
-		throw function_exception("Script directory not found.");
+		throw function_exception("Script directory not found");
 	}
 	script_path = dfhack_scripts_dir + "/jobsounds.lua";
 }

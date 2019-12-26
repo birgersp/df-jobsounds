@@ -16,29 +16,29 @@ Jobsounds_app::Jobsounds_app()
 	arg_parser.add_command("help", [this]()
 	{
 		print_help_text();
-		throw function_exception("Aborted.");
-	}, "View help text.");
+		throw function_exception("Aborted");
+	}, "View help text");
 
 	arg_parser.add_command("install-script", [this]()
 	{
 		script_installer.install_script();
-	}, "Create jobsounds script in DFHack directory, overwrite it if it already exists. If the script does not exist, it will be created even if this command is not invoked.");
+	}, "Create jobsounds script in DFHack directory, overwrite it if it already exists. If the script does not exist, it will be created even if this command is not invoked");
 
 	arg_parser.add_command("print-jobs", [this]()
 	{
 		print_jobs = true;
-	}, "Print the unit and job id when such data is received from Dwarf Fortress.");
+	}, "Print the unit and job id when such data is received from Dwarf Fortress");
 
 	arg_parser.add_setting("demo", [this](String_ref string)
 	{
 		demo.enable = true;
 		demo.job_id = parse_int(string);
-	}, "Loop a job to test how the sounds loaded for that job sounds. Example: demo=68.");
+	}, "Loop a job to test how the sounds loaded for that job sounds. Example: demo=68");
 
 	arg_parser.add_setting("dfdir", [this](String_ref string)
 	{
 		script_installer.df_dir = string;
-	}, "Explicitly set the Dwarf Fortress directory. Use this if you did not install jobsounds in the Dwarf Fortress folder. Example: dfdir=\"C:\\Dwarf Fortress\\\".");
+	}, "Explicitly set the Dwarf Fortress directory. Use this if you did not install jobsounds in the Dwarf Fortress folder. Example: dfdir=\"C:\\Dwarf Fortress\\\"");
 }
 
 void Jobsounds_app::run(const Vector<String>& arguments)
@@ -72,7 +72,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		}
 		catch (const cpputil::Exception& exception)
 		{
-			throw function_exception("Failed to parse argument: " + argument + ". " + exception.get_reason());
+			throw function_exception("Failed to parse argument: " + argument + "\n" + exception.get_reason());
 		}
 	}
 
@@ -125,14 +125,14 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		Vector<String> comma_split = cpputil::split_string(argument, ',');
 		if (comma_split.size() != 3)
 		{
-			throw function_exception("Invalid syntax.");
+			throw function_exception("Invalid syntax");
 		}
 		int job_id = parse_int(comma_split[0]);
 		String dirname = comma_split[1];
 		int min_time = parse_int(comma_split[2]);
 		if (job_sounds.get(job_id) != nullptr)
 		{
-			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded.");
+			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded");
 		}
 		print_line("Loading sounds for job: " + to_string(job_id));
 		Vector<String> filenames = get_filenames_in_dir(dirname);
@@ -212,21 +212,21 @@ void Jobsounds_app::run_demo()
 
 void Jobsounds_app::run_server()
 {
-	print_line("Starting server.");
+	print_line("Starting server");
 	server.bind(port);
 	while (true)
 	{
-		print_line("Waiting for a connection.");
+		print_line("Waiting for a connection");
 		auto connection = server.accept_connection();
-		print_line("Connection established.");
+		print_line("Connection established");
 		process_connection(connection);
 	}
 }
 
 void Jobsounds_app::print_help_text()
 {
-	print_line("Use the \"" + config_filename + "\" file to configurate.");
-	print_line("Configuration settings and commands can also be passed as arguments.");
+	print_line("Use the \"" + config_filename + "\" file to configurate");
+	print_line("Configuration settings and commands can also be passed as arguments");
 	print_line("");
 	print_line("Available commands:");
 	arg_parser.commands.foreach([](String_ref key, const Arg_parser::Command & command)
@@ -240,5 +240,5 @@ void Jobsounds_app::print_help_text()
 		print_line(" " + key + ": " + setting.description);
 	});
 	print_line("");
-	print_line("Sounds can be configurate with comma-separated values, either as arguments or in the configuration file. See \"" + config_filename + "\" for details.");
+	print_line("Sounds can be configurate with comma-separated values, either as arguments or in the configuration file. See \"" + config_filename + "\" for details");
 }

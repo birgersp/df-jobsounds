@@ -54,6 +54,6 @@ void Arg_parser::parse_as_setting(String_ref string)
 	}
 	else
 	{
-		throw function_exception("Invalid syntax. Expected (key)=(value).");
+		throw function_exception("Invalid syntax. Expected (key)=(value)");
 	}
 }
