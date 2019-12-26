@@ -28,7 +28,8 @@ int main(int argc, char **argv)
 	}
 	catch (Exception e)
 	{
-		std::cerr << e.get_reason() << std::endl;
+		std::cout << std::endl;
+		std::cerr << "Error: " << e.get_reason() << std::endl;
 		print_line("Use command \"help\" to view help text");
 		system("pause");
 	}
