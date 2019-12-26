@@ -10,8 +10,8 @@
 #include <cpputil/core.hpp>
 #include <cpputil/Map.hpp>
 
-typedef std::function<void() > Command_callback;
-typedef std::function<void(String_ref) > Setting_callback;
+using Command_callback = std::function<void() >;
+using Setting_callback = std::function<void(String_ref) >;
 
 class Arg_parser
 {
