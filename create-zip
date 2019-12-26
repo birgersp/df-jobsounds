@@ -12,5 +12,6 @@ cp -r sounds/ jobsounds/sounds
 cp df-jobsounds.exe jobsounds/jobsounds.exe
 cp ../config.txt jobsounds
 cp ../readme.md jobsounds
+rm `find jobsounds/sounds -type f -not -name "*.wav"`
 /c/Program\ Files/7-Zip/7z.exe u jobsounds.zip jobsounds/*
 cd $current_dir
