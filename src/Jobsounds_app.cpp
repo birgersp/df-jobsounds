@@ -68,7 +68,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 	{
 		load_config();
 	}
-	catch (const cpputil::Exception& exception)
+	catch (const Exception& exception)
 	{
 		throw function_exception("Failed to load configuration: " + config_filename + ". " + exception.get_reason());
 	}
@@ -79,7 +79,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		{
 			parse_argument(argument);
 		}
-		catch (const cpputil::Exception& exception)
+		catch (const Exception& exception)
 		{
 			throw function_exception("Failed to parse argument: " + argument + "\n" + exception.get_reason());
 		}
@@ -108,7 +108,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 void Jobsounds_app::load_config()
 {
 	print_line("Loading \"" + config_filename + "\"");
-	Vector<String> lines = cpputil::read_file_lines(config_filename);
+	Vector<String> lines = read_file_lines(config_filename);
 	uint line_index = 0;
 	for (String_ref line : lines)
 	{
@@ -120,7 +120,7 @@ void Jobsounds_app::load_config()
 				{
 					parse_argument(line);
 				}
-				catch (const cpputil::Exception& exception)
+				catch (const Exception& exception)
 				{
 					throw function_exception("Line " + to_string(line_index) + ". " + exception.get_reason());
 				}
@@ -132,7 +132,7 @@ void Jobsounds_app::parse_argument(String_ref argument)
 {
 	if (str_contains(argument, ','))
 	{
-		Vector<String> comma_split = cpputil::split_string(argument, ',');
+		Vector<String> comma_split = split_string(argument, ',');
 		if (comma_split.size() != 3)
 		{
 			throw function_exception("Invalid syntax");
@@ -152,7 +152,7 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		{
 			String extension = filename;
 			replace_in_str(".*?\\.", "", extension);
-			cpputil::to_lower_case(extension);
+			to_lower_case(extension);
 			if (extension == "wav")
 			{
 				print_line(" " + filename);
@@ -195,7 +195,7 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 
 void Jobsounds_app::parse_message(String_ref message)
 {
-	Vector<String> split = cpputil::split_string(message, ' ');
+	Vector<String> split = split_string(message, ' ');
 	int unit_id = parse_int(split[0]);
 	int job_id = parse_int(split[1]);
 	if (print_jobs)
@@ -225,7 +225,7 @@ void Jobsounds_app::run_demo()
 	while (true)
 	{
 		process_unit_job(0, demo.job_id);
-		cpputil::sleep_mS(20);
+		sleep_mS(20);
 	}
 }
 

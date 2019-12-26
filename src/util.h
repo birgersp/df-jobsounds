@@ -22,12 +22,6 @@ void wait_for_enter();
 void replace_in_str(String_ref regex, String_ref replace, Mutable_string_ref string);
 
 template <typename T>
-void print_line(T data)
-{
-	cpputil::print_line(data);
-}
-
-template <typename T>
 void print_vector(Vector<T> vector)
 {
 	for (T element : vector)

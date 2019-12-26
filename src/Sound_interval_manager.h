@@ -26,8 +26,8 @@ public:
 
 private:
 
-	cpputil::Map<int, Sound_event> unit_sound_events;
-	cpputil::Map<int, uint> sound_min_time;
+	Map<int, Sound_event> unit_sound_events;
+	Map<int, uint> sound_min_time;
 
 };
 

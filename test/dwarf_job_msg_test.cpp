@@ -8,8 +8,6 @@
 #include "cpputil/Stringreader.hpp"
 #include "Dwarf_job_msg.h"
 
-using namespace cpputil;
-
 void test_parse()
 {
 	register_test();

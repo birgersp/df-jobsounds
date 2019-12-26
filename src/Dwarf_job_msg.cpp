@@ -9,7 +9,7 @@
 
 Dwarf_job_msg parse_dwarf_job_msg(String_ref string)
 {
-	Vector<String> split = cpputil::split_string(string, ' ');
+	Vector<String> split = split_string(string, ' ');
 	Dwarf_job_msg message;
 	message.dwarf_id = parse_int(split[0]);
 	message.job_id = parse_int(split[1]);

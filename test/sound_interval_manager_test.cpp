@@ -7,8 +7,6 @@
 #include "sound_interval_manager_test.h"
 #include "sound_interval_manager.h"
 
-namespace test
-{
 namespace sound_interval_manager
 {
 
@@ -28,10 +26,7 @@ bool testsSucceed()
 	auto tests = {
 		test1
 	};
-	return cpputil::test_all(tests);
+	return test_all(tests);
 }
 
 }
-}
-
-

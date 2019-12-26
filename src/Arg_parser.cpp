@@ -39,7 +39,7 @@ void Arg_parser::parse_as_command(String_ref string)
 
 void Arg_parser::parse_as_setting(String_ref string)
 {
-	Vector<String> equals_split = cpputil::split_string(string, '=');
+	Vector<String> equals_split = split_string(string, '=');
 	if (equals_split.size() == 2)
 	{
 		Setting* setting = settings.get(equals_split[0]);

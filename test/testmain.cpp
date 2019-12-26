@@ -10,12 +10,11 @@
 
 int main(int argc, char **argv)
 {
-	using namespace test;
-	Vector<cpputil::Bool_function> test_functions = {
+	Vector<Bool_function> test_functions = {
 		test_dwarf_job_msg,
 		sound_interval_manager::testsSucceed
 	};
-	if (cpputil::all_succeed(test_functions))
+	if (all_succeed(test_functions))
 	{
 		return 0;
 	}

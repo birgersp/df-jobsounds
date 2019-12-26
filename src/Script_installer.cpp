@@ -26,7 +26,7 @@ void Script_installer::install_script()
 	if (dfhack_scripts_dir == "")
 		find_script_path();
 	print_line("Installing jobsounds script to: " + script_path);
-	cpputil::write_file(script_path, JOBSOUNDS_LUA_TRANSPILED);
+	write_file(script_path, JOBSOUNDS_LUA_TRANSPILED);
 }
 
 void Script_installer::find_script_path()

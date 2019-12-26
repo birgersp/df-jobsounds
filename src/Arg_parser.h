@@ -34,8 +34,8 @@ public:
 	void parse_as_command(String_ref string);
 	void parse_as_setting(String_ref string);
 
-	cpputil::Map<String, Command> commands;
-	cpputil::Map<String, Setting> settings;
+	Map<String, Command> commands;
+	Map<String, Setting> settings;
 
 };
 

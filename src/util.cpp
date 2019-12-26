@@ -96,7 +96,7 @@ bool str_contains(String_ref string, char character)
 
 void print_error(String_ref message)
 {
-	cpputil::print_error_string(message);
+	print_error_string(message);
 }
 
 void wait_for_enter()

@@ -15,6 +15,4 @@
 #define OS_WINDOWS
 #endif
 
-typedef const cpputil::Exception& Exception;
-
 #endif /* CORE_H */

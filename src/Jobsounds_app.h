@@ -33,7 +33,7 @@ private:
 	uint port = 56730;
 	String config_filename = "config.txt";
 	Socket_Server server;
-	cpputil::Map<int, Vector<Sound>> job_sounds;
+	Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
 	Script_installer script_installer;
