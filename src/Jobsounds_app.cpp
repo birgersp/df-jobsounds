@@ -59,6 +59,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 
 	print_line("Use the \"help\" command to view available commands and settings");
 	print_line("Edit the \"" + config_filename + "\" file to configurate");
+	print_line("");
 
 	sound_mixer.initialize();
 	srand(time(nullptr));
@@ -106,6 +107,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 
 void Jobsounds_app::load_config()
 {
+	print_line("Loading \"" + config_filename + "\"");
 	Vector<String> lines = cpputil::read_file_lines(config_filename);
 	uint line_index = 0;
 	for (String_ref line : lines)
@@ -135,6 +137,7 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		{
 			throw function_exception("Invalid syntax");
 		}
+		print_line(argument);
 		int job_id = parse_int(comma_split[0]);
 		String dirname = comma_split[1];
 		int min_time = parse_int(comma_split[2]);
@@ -162,10 +165,12 @@ void Jobsounds_app::parse_argument(String_ref argument)
 	}
 	else if (str_contains(argument, '='))
 	{
+		print_line(argument);
 		arg_parser.parse_as_setting(argument);
 	}
 	else
 	{
+		print_line(argument);
 		arg_parser.parse_as_command(argument);
 	}
 }

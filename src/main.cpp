@@ -12,7 +12,6 @@
 #ifdef OS_WINDOWS
 #include <winsock2.h>
 #endif
-#include <iostream>
 #include <cpputil/timing.hpp>
 #include <cpputil/errorhandling.hpp>
 
@@ -28,10 +27,10 @@ int main(int argc, char **argv)
 	}
 	catch (Exception e)
 	{
-		std::cout << std::endl;
-		std::cerr << "Error: " << e.get_reason() << std::endl;
+		print_line("");
+		print_error("Error: " + e.get_reason());
 		print_line("Use command \"help\" to view help text");
-		system("pause");
+		wait_for_enter();
 	}
 
 	return 0;
