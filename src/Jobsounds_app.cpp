@@ -147,9 +147,15 @@ void Jobsounds_app::parse_argument(String_ref argument)
 		Vector<Sound> sounds;
 		for (String_ref filename : filenames)
 		{
-			print_line(" " + filename);
-			Sound sound = sound_mixer.load_sound(filename);
-			sounds.push_back(sound);
+			String extension = filename;
+			replace_in_str(".*?\\.", "", extension);
+			cpputil::to_lower_case(extension);
+			if (extension == "wav")
+			{
+				print_line(" " + filename);
+				Sound sound = sound_mixer.load_sound(filename);
+				sounds.push_back(sound);
+			}
 		}
 		job_sounds.put(job_id, sounds);
 		inteval_manager.set_sound_interval(job_id, min_time);
