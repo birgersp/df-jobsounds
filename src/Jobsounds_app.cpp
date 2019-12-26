@@ -72,7 +72,7 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		}
 		catch (const cpputil::Exception& exception)
 		{
-			throw function_exception("Invalid argument: " + argument + ". " + exception.get_reason());
+			throw function_exception("Failed to parse argument: " + argument + ". " + exception.get_reason());
 		}
 	}
 

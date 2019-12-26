@@ -49,11 +49,11 @@ void Arg_parser::parse_as_setting(String_ref string)
 		}
 		else
 		{
-			throw function_exception("Unrecognized keyword: " + equals_split[0]);
+			throw function_exception("Unrecognized setting: " + equals_split[0]);
 		}
 	}
 	else
 	{
-		throw function_exception("Invalid syntax.");
+		throw function_exception("Invalid syntax. Expected (key)=(value).");
 	}
 }
