@@ -11,6 +11,12 @@ Connects to a socket (tcp), checks the current job of dwarves and sends messages
 local function init_socket() socket = tcp:connect('127.0.0.1', 56730) end
 
 local function start()
+
+    if jobsounds_running then
+        dfhack.println(script_name .. " already running")
+        return
+    end
+
     luasocket = require("plugins.luasocket")
     tcp = luasocket.tcp
     dfhack.println(script_name .. " connecting...")
@@ -21,6 +27,7 @@ local function start()
         stop = false
         time_last_send = os.time()
         loop()
+        jobsounds_running = true
     else
         dfhack.println(script_name .. " could not connect")
     end
@@ -63,14 +70,19 @@ local function check_dwarves()
 end
 
 function loop()
+    if (os.time() - time_last_send > 2) then
+        send("0 0\0") -- Send this to check connection
+    end
+
     if (stop == true) then
         dfhack.println(script_name .. " stopped")
+        jobsounds_running = false
         return
     end
 
     if (df.global.pause_state == false) then check_dwarves() end
 
-    dfhack.timeout(15, 'ticks', loop)
+    dfhack.timeout(30, 'frames', loop)
 end
 
 start()
