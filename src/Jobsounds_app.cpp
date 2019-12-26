@@ -19,10 +19,10 @@ Jobsounds_app::Jobsounds_app()
 		throw function_exception("Aborted");
 	}, "View help text");
 
-	arg_parser.add_command("install-script", [this]()
+	arg_parser.add_command("noinstall", [this]()
 	{
-		script_installer.install_script();
-	}, "Create jobsounds script in DFHack directory, overwrite it if it already exists. If the script does not exist, it will be created even if this command is not invoked");
+		noinstall = true;
+	}, "Skip jobsounds script installation in DFHack directory");
 
 	arg_parser.add_command("print-jobs", [this]()
 	{
@@ -90,10 +90,8 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 		print_line("Warning: no sounds loaded");
 	}
 
-	if (not script_installer.check_script_exists())
-	{
+	if (not noinstall)
 		script_installer.install_script();
-	}
 
 	if (demo.enable)
 	{

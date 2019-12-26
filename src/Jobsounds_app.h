@@ -32,6 +32,7 @@ private:
 	bool print_jobs = false;
 	uint port = 56730;
 	String config_filename = "config.txt";
+	bool noinstall = false;
 	Socket_Server server;
 	Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
