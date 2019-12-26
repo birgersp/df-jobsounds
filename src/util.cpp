@@ -7,6 +7,7 @@
 #include <winsock2.h>
 #include <sys/time.h>
 #include <filesystem>
+#include <regex>
 
 namespace fs = std::filesystem;
 
@@ -91,4 +92,19 @@ char last_char_of(String_ref string)
 bool str_contains(String_ref string, char character)
 {
 	return string.find(character) != -1;
+}
+
+void print_error(String_ref message)
+{
+	cpputil::print_error_string(message);
+}
+
+void wait_for_enter()
+{
+	system("pause");
+}
+
+void replace_in_str(String_ref regex, String_ref replace, Mutable_string_ref string)
+{
+	string = std::regex_replace(string, std::regex(regex), replace);
 }

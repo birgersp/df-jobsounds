@@ -17,6 +17,9 @@ bool dir_exists(String_ref dir);
 bool file_exists(String_ref path);
 char last_char_of(String_ref string);
 bool str_contains(String_ref string, char character);
+void print_error(String_ref message);
+void wait_for_enter();
+void replace_in_str(String_ref regex, String_ref replace, Mutable_string_ref string);
 
 template <typename T>
 void print_line(T data)
