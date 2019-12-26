@@ -43,6 +43,11 @@ Jobsounds_app::Jobsounds_app()
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
+	print_line("Dwarf Fortress sound utility");
+	print_line("Programmed by birgersp");
+	print_line("Visit https://github.com/birgersp/df-jobsounds");
+	print_line("");
+
 	if (arguments.size() == 1)
 	{
 		if (arguments[0] == "help")
@@ -51,6 +56,9 @@ void Jobsounds_app::run(const Vector<String>& arguments)
 			return;
 		}
 	}
+
+	print_line("Use the \"help\" command to view available commands and settings");
+	print_line("Edit the \"" + config_filename + "\" file to configurate");
 
 	sound_mixer.initialize();
 	srand(time(nullptr));
@@ -225,7 +233,7 @@ void Jobsounds_app::run_server()
 
 void Jobsounds_app::print_help_text()
 {
-	print_line("Use the \"" + config_filename + "\" file to configurate");
+	print_line("Edit the \"" + config_filename + "\" file to configurate");
 	print_line("Configuration settings and commands can also be passed as arguments");
 	print_line("");
 	print_line("Available commands:");
