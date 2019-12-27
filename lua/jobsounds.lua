@@ -26,6 +26,7 @@ local function start()
         dfhack.println(script_name .. " connected")
         stop = false
         time_last_send = os.time()
+        current_game_tick = df.global.cur_year_tick
         loop()
         jobsounds_running = true
     else
@@ -80,8 +81,9 @@ function loop()
         return
     end
 
-    if (df.global.pause_state == false) then check_dwarves() end
+    if (df.global.cur_year_tick ~= current_game_tick) then check_dwarves() end
 
+    current_game_tick = df.global.cur_year_tick
     dfhack.timeout(30, 'frames', loop)
 end
 
