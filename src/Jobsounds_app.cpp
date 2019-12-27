@@ -11,6 +11,7 @@
 #include <cpputil/file.hpp>
 #include "jobsounds_lua_transpiled.h"
 #include "Console.h"
+#include <cpputil/Table_printer.hpp>
 
 Jobsounds_app::Jobsounds_app() :
 sound_loader(sound_mixer)
@@ -252,20 +253,25 @@ void Jobsounds_app::run_server()
 
 void Jobsounds_app::print_help_text()
 {
+	Table_printer table_printer;
 	print_line("Edit the \"" + config_filename + "\" file to configurate");
 	print_line("Configuration settings and commands can also be passed as arguments");
+	table_printer.clear();
+	arg_parser.commands.foreach([&table_printer](String_ref key, const Arg_parser::Command & command)
+	{
+		table_printer.add_row({" " + key, ": " + command.description});
+	});
 	print_line("");
 	print_line("Available commands:");
-	arg_parser.commands.foreach([](String_ref key, const Arg_parser::Command & command)
+	print_line(table_printer.to_string());
+	table_printer.clear();
+	arg_parser.settings.foreach([&table_printer](String_ref key, const Arg_parser::Setting & setting)
 	{
-		print_line(" " + key + ": " + command.description);
+		table_printer.add_row({" " + key, ": " + setting.description});
 	});
 	print_line("");
 	print_line("Available settings:");
-	arg_parser.settings.foreach([](String_ref key, const Arg_parser::Setting & setting)
-	{
-		print_line(" " + key + ": " + setting.description);
-	});
+	print_line(table_printer.to_string());
 	print_line("");
 	print_line("Sounds can be configurate with comma-separated values, either as arguments or in the configuration file. See \"" + config_filename + "\" for details");
 }
