@@ -10,6 +10,7 @@ mkdir -p jobsounds/licenses
 cp $licenses jobsounds/licenses
 cp -r sounds/ jobsounds/sounds
 cp df-jobsounds.exe jobsounds/jobsounds.exe
+cp ../exit.bat jobsounds
 cp ../config.txt jobsounds
 cp ../readme.md jobsounds
 rm `find jobsounds/sounds -type f -not -name "*.wav"`
