@@ -17,21 +17,17 @@
 
 int main(int argc, char **argv)
 {
+	Vector<String> arguments;
+	for (int i = 1; i < argc; i++)
+		arguments.push_back(String(argv[i]));
+	Jobsounds_app app;
 	try
 	{
-		Vector<String> arguments;
-		for (int i = 1; i < argc; i++)
-			arguments.push_back(String(argv[i]));
-		Jobsounds_app app;
 		app.run(arguments);
 	}
-	catch (Exception e)
+	catch (const Exception& e)
 	{
-		print_line("");
-		print_error("Error: " + e.get_reason());
-		print_line("Use command \"help\" to view help text");
-		wait_for_enter();
+		return 1;
 	}
-
 	return 0;
 }

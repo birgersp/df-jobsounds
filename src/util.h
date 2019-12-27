@@ -36,4 +36,15 @@ String to_string(T data)
 	return std::to_string(data);
 }
 
+template <typename T>
+bool vector_contains(Vector<T> vector, T element)
+{
+	for (T vec_element : vector)
+	{
+		if (vec_element == element)
+			return true;
+	}
+	return false;
+}
+
 #endif

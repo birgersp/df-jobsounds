@@ -13,6 +13,7 @@
 #include "Sound_Mixer.h"
 #include "Script_installer.h"
 #include "Arg_parser.h"
+#include "Console.h"
 
 class Jobsounds_app
 {
@@ -33,13 +34,16 @@ private:
 	uint port = 56730;
 	String config_filename = "config.txt";
 	bool noinstall = false;
+	bool hide = false;
 	Socket_Server server;
 	Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
 	Sound_Mixer sound_mixer;
 	Script_installer script_installer;
 	Arg_parser arg_parser;
+	Console console;
 
+	void run_app(const Vector<String>& arguments);
 	void load_config();
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);

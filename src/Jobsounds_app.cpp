@@ -10,6 +10,7 @@
 #include <time.h>
 #include <cpputil/file.hpp>
 #include "jobsounds_lua_transpiled.h"
+#include "Console.h"
 
 Jobsounds_app::Jobsounds_app()
 {
@@ -29,6 +30,11 @@ Jobsounds_app::Jobsounds_app()
 		print_jobs = true;
 	}, "Print the unit and job id when such data is received from Dwarf Fortress");
 
+	arg_parser.add_command("hide", [this]()
+	{
+		hide = true;
+	}, "Hide the console window once the server is started. The console window will re-appear if an error occurs");
+
 	arg_parser.add_setting("demo", [this](String_ref string)
 	{
 		demo.enable = true;
@@ -43,18 +49,31 @@ Jobsounds_app::Jobsounds_app()
 
 void Jobsounds_app::run(const Vector<String>& arguments)
 {
+	try
+	{
+		run_app(arguments);
+	}
+	catch (const Exception& exception)
+	{
+		console.show();
+		print_error("Error: " + exception.get_reason());
+		print_line("Use command \"help\" to view help text");
+		wait_for_enter();
+		throw exception;
+	}
+}
+
+void Jobsounds_app::run_app(const Vector<String>& arguments)
+{
 	print_line("Dwarf Fortress sound utility");
 	print_line("Programmed by birgersp");
 	print_line("Visit https://github.com/birgersp/df-jobsounds");
 	print_line("");
 
-	if (arguments.size() == 1)
+	if (vector_contains(arguments, String("help")))
 	{
-		if (arguments[0] == "help")
-		{
-			print_help_text();
-			return;
-		}
+		print_help_text();
+		return;
 	}
 
 	print_line("Use the \"help\" command to view available commands and settings");
@@ -231,6 +250,8 @@ void Jobsounds_app::run_server()
 {
 	print_line("Starting server");
 	server.bind(port);
+	if (hide)
+		console.hide();
 	while (true)
 	{
 		print_line("Waiting for a connection");
