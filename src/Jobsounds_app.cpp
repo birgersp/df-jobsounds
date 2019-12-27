@@ -12,7 +12,8 @@
 #include "jobsounds_lua_transpiled.h"
 #include "Console.h"
 
-Jobsounds_app::Jobsounds_app()
+Jobsounds_app::Jobsounds_app() :
+sound_loader(sound_mixer)
 {
 	arg_parser.add_command("help", [this]()
 	{
@@ -163,20 +164,8 @@ void Jobsounds_app::parse_argument(String_ref argument)
 			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded");
 		}
 		print_line("Loading sounds for job: " + to_string(job_id));
-		Vector<String> filenames = get_filenames_in_dir(dirname);
 		Vector<Sound> sounds;
-		for (String_ref filename : filenames)
-		{
-			String extension = filename;
-			replace_in_str(".*?\\.", "", extension);
-			to_lower_case(extension);
-			if (extension == "wav")
-			{
-				print_line(" " + filename);
-				Sound sound = sound_mixer.load_sound(filename);
-				sounds.push_back(sound);
-			}
-		}
+		sound_loader.load_wavs(dirname, sounds);
 		job_sounds.put(job_id, sounds);
 		inteval_manager.set_sound_interval(job_id, min_time);
 	}

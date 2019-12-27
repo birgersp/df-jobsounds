@@ -14,6 +14,7 @@
 #include "Script_installer.h"
 #include "Arg_parser.h"
 #include "Console.h"
+#include "Sound_loader.h"
 
 class Jobsounds_app
 {
@@ -42,6 +43,7 @@ private:
 	Script_installer script_installer;
 	Arg_parser arg_parser;
 	Console console;
+	Sound_loader sound_loader;
 
 	void run_app(const Vector<String>& arguments);
 	void load_config();
