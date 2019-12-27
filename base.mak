@@ -19,7 +19,7 @@ $(info INCLUDE_DIR: $(INCLUDE_DIR))
 $(info INCLUDES: $(INCLUDES))
 
 # Compiler flags
-CC_FLAGS += $(INCLUDES) -c -Werror
+CC_FLAGS += $(INCLUDES) -c -std=c++17 -Werror
 
 # Linker flags
 LD_FLAGS += $(LIBRARIES)

@@ -12,6 +12,6 @@ LIBRARIES := \
 	-lws2_32 \
 	-lstdc++fs
 
-CC_FLAGS += -Wpedantic -Wfatal-errors -std=c++17
+CC_FLAGS += -Wpedantic -Wfatal-errors
 
 include base.mak
