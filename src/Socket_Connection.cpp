@@ -32,7 +32,7 @@ void Socket_Connection::readline(Mutable_string_ref string)
 		else if (n == 0)
 		{
 			connection_open = false;
-			done;
+			done = true;
 		}
 		else
 		{
