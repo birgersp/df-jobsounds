@@ -36,6 +36,7 @@ private:
 	String config_filename = "config.txt";
 	bool noinstall = false;
 	bool hide = false;
+	bool debug = false;
 	Socket_Server server;
 	Map<int, Vector<Sound>> job_sounds;
 	Sound_interval_manager inteval_manager;
@@ -54,6 +55,7 @@ private:
 	void run_demo();
 	void run_server();
 	void print_help_text();
+	void debug_print(String_ref string);
 
 };
 

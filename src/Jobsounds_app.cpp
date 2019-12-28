@@ -37,6 +37,11 @@ sound_loader(sound_mixer)
 		hide = true;
 	}, "Hide the console window once the server is started. The console window will re-appear if an error occurs");
 
+	arg_parser.add_command("debug", [this]()
+	{
+		debug = true;
+	}, "Enable debug mode");
+
 	arg_parser.add_setting("demo", [this](String_ref string)
 	{
 		demo.enable = true;
@@ -185,27 +190,40 @@ void Jobsounds_app::parse_argument(String_ref argument)
 void Jobsounds_app::process_connection(Socket_Connection& connection)
 {
 	String message;
-	while (not connection.is_closed())
+	bool connection_closed = false;
+	while (not connection_closed)
 	{
+		debug_print("Reading message");
 		message.clear();
 		connection.readline(message);
-		try
+		if (connection.is_closed())
+			connection_closed = true;
+		else
 		{
-			parse_message(message);
-		}
-		catch (Exception e)
-		{
-			throw function_exception("Failed to parse message: " + message + ". " + e.get_reason());
+			debug_print("Read: " + message);
+			try
+			{
+				parse_message(message);
+			}
+			catch (Exception e)
+			{
+				throw function_exception("Failed to parse message: " + message + ". " + e.get_reason());
+			}
 		}
 	}
+	print_line("Connection closed");
 }
 
 void Jobsounds_app::parse_message(String_ref message)
 {
 	Vector<String> split = split_string(message, ' ');
+	if (split.size() != 2)
+	{
+		throw function_exception("Cannot parse message: " + message);
+	}
 	int unit_id = parse_int(split[0]);
 	int job_id = parse_int(split[1]);
-	if (print_jobs)
+	if (print_jobs or debug)
 		print_line("unit_id=" + split[0] + ", job_id=" + split[1]);
 	process_unit_job(unit_id, job_id);
 }
@@ -219,6 +237,7 @@ void Jobsounds_app::process_unit_job(int unit_id, int job_id)
 	bool should_play = inteval_manager.sound_should_play(unit_id, job_id, timestamp);
 	if (should_play)
 	{
+		debug_print("Playing sound for job: " + to_string(job_id));
 		uint random_index = rand() % sounds->size();
 		const Sound& sound = (*sounds)[random_index];
 		sound_mixer.play(sound);
@@ -274,4 +293,11 @@ void Jobsounds_app::print_help_text()
 	print_line(table_printer.to_string());
 	print_line("");
 	print_line("Sounds can be configurate with comma-separated values, either as arguments or in the configuration file. See \"" + config_filename + "\" for details");
+}
+
+void Jobsounds_app::debug_print(String_ref string)
+{
+	if (not debug)
+		return;
+	print_line(string);
 }
