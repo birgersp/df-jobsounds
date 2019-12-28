@@ -219,7 +219,8 @@ void Jobsounds_app::parse_message(String_ref message)
 	Vector<String> split = split_string(message, ' ');
 	if (split.size() != 2)
 	{
-		throw function_exception("Cannot parse message: " + message);
+		debug_print("An invalid message was received: " + message);
+		return;
 	}
 	int unit_id = parse_int(split[0]);
 	int job_id = parse_int(split[1]);
