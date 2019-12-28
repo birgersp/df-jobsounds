@@ -266,6 +266,7 @@ void Jobsounds_app::run_server()
 		print_line("Waiting for a connection");
 		auto connection = server.accept_connection();
 		print_line("Connection established");
+		print_line("Now playing sound as job data is sent from DF");
 		process_connection(connection);
 	}
 }
