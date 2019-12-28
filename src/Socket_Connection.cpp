@@ -37,7 +37,7 @@ void Socket_Connection::readline(Mutable_string_ref string)
 		else
 		{
 			string += String(buffer, n);
-			if (buffer[n - 1] == '\0')
+			if (buffer[n - 1] == '\n')
 				done = true;
 		}
 	}

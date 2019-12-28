@@ -200,10 +200,17 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 			connection_closed = true;
 		else
 		{
-			debug_print("Read: " + message);
 			try
 			{
-				parse_message(message);
+				Vector<String> lines = split_string(message, '\n');
+				debug_print("Message split to no of lines: " + to_string(lines.size()));
+				for (String_ref line : lines)
+				{
+					debug_print("Parsing line: " + line);
+					debug_print("Line length: " + to_string(line.size()));
+					if (line != "")
+						parse_message(line);
+				}
 			}
 			catch (Exception e)
 			{

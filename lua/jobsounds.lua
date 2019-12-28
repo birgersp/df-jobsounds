@@ -47,7 +47,7 @@ local function trigger_job_sound(unit, job_type)
         if (df.global.window_z == unit.pos.z and df.global.window_x < unit.pos.x and
             df.global.window_x + 90 > unit.pos.x and df.global.window_y <
             unit.pos.y and df.global.window_y + 60 > unit.pos.y) then
-            send(unit.id .. " " .. job_type .. "\0")
+            send(unit.id .. " " .. job_type .. "\n")
         end
     end
 end
@@ -72,7 +72,7 @@ end
 
 function loop()
     if (os.time() - time_last_send > 2) then
-        send("0 0\0") -- Send this to check connection
+        send("0 0\n") -- Send this to check connection
     end
 
     if (stop == true) then
