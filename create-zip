@@ -2,6 +2,7 @@
 
 current_dir=`pwd`
 cd bin
+rm -rf jobsounds
 dlls=`find -name "*.dll"`
 licenses=`find -name "*LICENSE*"`
 mkdir -p jobsounds
@@ -14,5 +15,6 @@ cp ../exit.bat jobsounds
 cp ../config.txt jobsounds
 cp ../readme.md jobsounds
 rm `find jobsounds/sounds -type f -not -name "*.wav"`
+rm -f jobsounds.zip
 /c/Program\ Files/7-Zip/7z.exe u jobsounds.zip jobsounds/*
 cd $current_dir
