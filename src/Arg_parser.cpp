@@ -41,20 +41,12 @@ void Arg_parser::parse_as_command(String_ref string)
 void Arg_parser::parse_as_setting(String_ref string)
 {
 	Vector<String> equals_split = split_string(string, '=');
-	if (equals_split.size() == 2)
-	{
-		Setting* setting = settings.get(equals_split[0]);
-		if (setting != nullptr)
-		{
-			setting->callback(equals_split[1]);
-		}
-		else
-		{
-			throw function_exception("Unrecognized setting: " + equals_split[0]);
-		}
-	}
-	else
-	{
+	if (equals_split.size() != 2)
 		throw function_exception("Invalid syntax. Expected (key)=(value)");
-	}
+
+	Setting* setting = settings.get(equals_split[0]);
+	if (setting == nullptr)
+		throw function_exception("Unrecognized setting: " + equals_split[0]);
+
+	setting->callback(equals_split[1]);
 }

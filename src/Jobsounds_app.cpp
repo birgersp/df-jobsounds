@@ -137,17 +137,19 @@ void Jobsounds_app::load_config()
 	for (String_ref line : lines)
 	{
 		line_index++;
-		if (line.size() > 0)
+
+		if (line.size() <= 0)
+			continue;
+		if (line[0] == '#')
+			continue;
+
+		try
 		{
-			if (line[0] != '#')
-				try
-				{
-					parse_argument(line);
-				}
-				catch (const Exception& exception)
-				{
-					throw function_exception("Line " + to_string(line_index) + ". " + exception.get_reason());
-				}
+			parse_argument(line);
+		}
+		catch (const Exception& exception)
+		{
+			throw function_exception("Line " + to_string(line_index) + ". " + exception.get_reason());
 		}
 	}
 }
@@ -158,17 +160,15 @@ void Jobsounds_app::parse_argument(String_ref argument)
 	{
 		Vector<String> comma_split = split_string(argument, ',');
 		if (comma_split.size() != 3)
-		{
 			throw function_exception("Invalid syntax");
-		}
+
 		print_line(argument);
 		int job_id = parse_int(comma_split[0]);
+		if (job_sounds.get(job_id) != nullptr)
+			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded");
+
 		String dirname = comma_split[1];
 		int min_time = parse_int(comma_split[2]);
-		if (job_sounds.get(job_id) != nullptr)
-		{
-			print_line("Warning: sounds are already added for job " + to_string(job_id) + ". These sounds will be unloaded");
-		}
 		print_line("Loading sounds for job: " + to_string(job_id));
 		Vector<Sound> sounds;
 		sound_loader.load_wavs(dirname, sounds);
@@ -190,32 +190,30 @@ void Jobsounds_app::parse_argument(String_ref argument)
 void Jobsounds_app::process_connection(Socket_Connection& connection)
 {
 	String message;
-	bool connection_closed = false;
-	while (not connection_closed)
+	while (true)
 	{
 		debug_print("Reading message");
 		message.clear();
+
 		connection.readline(message);
 		if (connection.is_closed())
-			connection_closed = true;
-		else
+			break;
+
+		try
 		{
-			try
+			Vector<String> lines = split_string(message, '\n');
+			debug_print("Message split to no of lines: " + to_string(lines.size()));
+			for (String_ref line : lines)
 			{
-				Vector<String> lines = split_string(message, '\n');
-				debug_print("Message split to no of lines: " + to_string(lines.size()));
-				for (String_ref line : lines)
-				{
-					debug_print("Parsing line: " + line);
-					debug_print("Line length: " + to_string(line.size()));
-					if (line != "")
-						parse_message(line);
-				}
+				debug_print("Parsing line: " + line);
+				debug_print("Line length: " + to_string(line.size()));
+				if (line != "")
+					parse_message(line);
 			}
-			catch (Exception e)
-			{
-				throw function_exception("Failed to parse message: " + message + ". " + e.get_reason());
-			}
+		}
+		catch (Exception e)
+		{
+			throw function_exception("Failed to parse message: " + message + ". " + e.get_reason());
 		}
 	}
 	print_line("Connection closed");
