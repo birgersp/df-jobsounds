@@ -81,6 +81,7 @@ lib: $(LIB_DIR)/lib$(PROJECT_NAME).a
 # Clean (wipe build directory)
 clean:
 	rm -rf $(BUILD_DIR)/*
-	rm -rf $(BINARIES_DIR)/*
+	rm $(BINARIES_DIR)/$(PROJECT_NAME)-test*
+	rm $(BINARIES_DIR)/$(PROJECT_NAME)*
 
 .PHONY: all clean
