@@ -201,15 +201,7 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 
 		try
 		{
-			Vector<String> lines = split_string(message, '\n');
-			debug_print("Message split to no of lines: " + to_string(lines.size()));
-			for (String_ref line : lines)
-			{
-				debug_print("Parsing line: " + line);
-				debug_print("Line length: " + to_string(line.size()));
-				if (line != "")
-					parse_message(line);
-			}
+			parse_msg(message);
 		}
 		catch (Exception e)
 		{
@@ -219,7 +211,20 @@ void Jobsounds_app::process_connection(Socket_Connection& connection)
 	print_line("Connection closed");
 }
 
-void Jobsounds_app::parse_message(String_ref message)
+void Jobsounds_app::parse_msg(String_ref message)
+{
+	Vector<String> lines = split_string(message, '\n');
+	debug_print("Message split to no of lines: " + to_string(lines.size()));
+	for (String_ref line : lines)
+	{
+		debug_print("Parsing line: " + line);
+		debug_print("Line length: " + to_string(line.size()));
+		if (line != "")
+			parse_msg_line(line);
+	}
+}
+
+void Jobsounds_app::parse_msg_line(String_ref message)
 {
 	Vector<String> split = split_string(message, ' ');
 	if (split.size() != 2)

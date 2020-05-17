@@ -49,7 +49,8 @@ private:
 	void load_config();
 	void parse_argument(String_ref argument);
 	void process_connection(Socket_Connection& connection);
-	void parse_message(String_ref message);
+	void parse_msg(String_ref message);
+	void parse_msg_line(String_ref message);
 	void process_unit_job(int unit_id, int job_id);
 	void run_demo();
 	void run_server();
