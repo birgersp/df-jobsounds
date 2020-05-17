@@ -116,15 +116,15 @@ void Jobsounds_app::run_app(const Vector<String>& arguments)
 		print_line("Warning: no sounds loaded");
 	}
 
-	if (not noinstall)
-		script_installer.install_script();
-
 	if (demo.enable)
 	{
 		run_demo();
 	}
 	else
 	{
+		if (not noinstall)
+			script_installer.install_script();
+
 		run_server();
 	}
 }
