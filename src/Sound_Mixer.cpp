@@ -25,7 +25,7 @@ Sound Sound_Mixer::load_sound(String_ref filename)
 	if (chunk == NULL)
 		throw function_exception("Could not open sound file \"" + filename + "\": " + Mix_GetError());
 	Sound sound;
-	sound.id = mix_chunks.size();
+	sound.id = (uint) mix_chunks.size();
 	mix_chunks.push_back(chunk);
 	return sound;
 }

@@ -7,6 +7,7 @@
 #include <cpputil/errorhandling.hpp>
 
 #include "Arg_parser.h"
+#include "core.h"
 
 void Arg_parser::add_command(String command, Command_callback callback, String description)
 {

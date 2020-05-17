@@ -88,7 +88,7 @@ void Jobsounds_app::run_app(const Vector<String>& arguments)
 	print_line("");
 
 	sound_mixer.initialize();
-	srand(time(nullptr));
+	srand((uint) time(nullptr));
 
 	try
 	{
@@ -246,7 +246,7 @@ void Jobsounds_app::process_unit_job(int unit_id, int job_id)
 	if (should_play)
 	{
 		debug_print("Playing sound for job: " + to_string(job_id));
-		uint random_index = rand() % sounds->size();
+		uint random_index = (uint) (rand() % sounds->size());
 		const Sound& sound = (*sounds)[random_index];
 		sound_mixer.play(sound);
 		inteval_manager.set_event(unit_id, job_id, timestamp);

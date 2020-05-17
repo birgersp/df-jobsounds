@@ -19,7 +19,7 @@ $(info INCLUDE_DIR: $(INCLUDE_DIR))
 $(info INCLUDES: $(INCLUDES))
 
 # Compiler flags
-CC_FLAGS += $(INCLUDES) -c -std=c++17 -Werror
+CC_FLAGS += $(INCLUDES) -c -std=c++17 -Werror -Wconversion -g
 
 # Linker flags
 LD_FLAGS += $(LIBRARIES)
@@ -32,6 +32,9 @@ AR = ar rcsv
 
 # Find all .cpp files in source directory
 SOURCES := $(shell (find $(SOURCES_DIR) -name '*.cpp'))
+
+# Find all .h files in source directory
+HEADERS := $(shell (find $(SOURCES_DIR) -name '*.h'))
 
 # Set test source files (use sources, remove main.cpp, add test sources directory)
 TEST_SOURCES := $(SOURCES)
@@ -57,7 +60,7 @@ $(BINARIES_DIR)/$(PROJECT_NAME)-test: $(TEST_OBJECTS)
 	$(CC) -o $@ $^ $(LD_FLAGS)
 
 # Build object files
-$(BUILD_DIR)/%.o: %.cpp
+$(BUILD_DIR)/%.o: %.cpp $(HEADERS)
 	mkdir -p $(shell dirname $@)
 	$(CC) $(CC_FLAGS) -o $@ $<
 
@@ -78,6 +81,6 @@ lib: $(LIB_DIR)/lib$(PROJECT_NAME).a
 # Clean (wipe build directory)
 clean:
 	rm -rf $(BUILD_DIR)/*
-	rm -f $(BINARIES_DIR)/$(PROJECT_NAME)*
+	rm -rf $(BINARIES_DIR)/*
 
 .PHONY: all clean
