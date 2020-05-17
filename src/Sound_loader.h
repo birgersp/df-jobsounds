@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOUND_LOADER_H
-#define SOUND_LOADER_H
+#pragma once
 
 #include "Sound_Mixer.h"
 #include <cpputil/Map.hpp>
@@ -22,5 +21,3 @@ private:
 	Map<String, Vector<Sound>> dir_sounds;
 
 };
-
-#endif /* SOUND_LOADER_H */

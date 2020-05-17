@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef JOBSOUNDS_APP_H
-#define JOBSOUNDS_APP_H
+#pragma once
 
 #include "core.h"
 #include "Socket_Server.h"
@@ -58,5 +57,3 @@ private:
 	void debug_print(String_ref string);
 
 };
-
-#endif /* JOBSOUNDS_APP_H */

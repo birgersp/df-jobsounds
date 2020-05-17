@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef CORE_H
-#define CORE_H
+#pragma once
 
 #include <vector>
 #include <string>
@@ -18,5 +17,3 @@
 
 template<class T>
 using Vector = std::vector<T>;
-
-#endif /* CORE_H */

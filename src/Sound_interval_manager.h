@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOUND_INTERVAL_MANAGER_H
-#define SOUND_INTERVAL_MANAGER_H
+#pragma once
 
 #include <cpputil/Map.hpp>
 #include "core.h"
@@ -30,5 +29,3 @@ private:
 	Map<int, uint> sound_min_time;
 
 };
-
-#endif /* SOUND_INTERVAL_MANAGER_H */

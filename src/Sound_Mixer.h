@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOUNDMIXER_H
-#define SOUNDMIXER_H
+#pragma once
 
 #include "core.h"
 #include "Sound.h"
@@ -21,5 +20,3 @@ private:
 	Vector<Mix_Chunk *> mix_chunks;
 	Mix_Chunk *get_mix_chunk(const Sound& sound);
 };
-
-#endif

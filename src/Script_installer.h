@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SCRIPT_INSTALLER_H
-#define SCRIPT_INSTALLER_H
+#pragma once
 
 #include "core.h"
 
@@ -24,5 +23,3 @@ private:
 	void find_script_path();
 
 };
-
-#endif /* SCRIPT_INSTALLER_H */

@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef CONSOLE_H
-#define CONSOLE_H
+#pragma once
 
 #include <windows.h>
 
@@ -21,5 +20,3 @@ private:
 	HWND window_handle;
 
 };
-
-#endif /* CONSOLE_H */

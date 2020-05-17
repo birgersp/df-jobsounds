@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOCKET_CONNECTION_H
-#define SOCKET_CONNECTION_H
+#pragma once
 
 #include "core.h"
 
@@ -25,5 +24,3 @@ private:
 	static const uint BUFFER_SIZE = 128;
 	char buffer[BUFFER_SIZE];
 };
-
-#endif /* SOCKET_CONNECTION_H */

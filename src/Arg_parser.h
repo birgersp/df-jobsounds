@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef ARG_PARSER_H
-#define ARG_PARSER_H
+#pragma once
 
 #include <functional>
 #include <cpputil/core.hpp>
@@ -38,5 +37,3 @@ public:
 	Map<String, Setting> settings;
 
 };
-
-#endif /* ARG_PARSER_H */

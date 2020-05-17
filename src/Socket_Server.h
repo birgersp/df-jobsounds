@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOCKET_SERVER_H
-#define SOCKET_SERVER_H
+#pragma once
 
 #include "Socket_Connection.h"
 #include "core.h"
@@ -27,5 +26,3 @@ private:
     struct sockaddr_in socket_address;
     SOCKET listen_socket = INVALID_SOCKET;
 };
-
-#endif // SOCKET_SERVER_H

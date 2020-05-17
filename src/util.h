@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef UTIL_H
-#define UTIL_H
+#pragma once
 
 #include "core.h"
 #include <cpputil/printing.hpp>
@@ -46,5 +45,3 @@ bool vector_contains(Vector<T> vector, T element)
 	}
 	return false;
 }
-
-#endif

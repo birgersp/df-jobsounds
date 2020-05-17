@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef SOUND_H
-#define SOUND_H
+#pragma once
 
 #include "core.h"
 
@@ -12,5 +11,3 @@ struct Sound
 {
 	uint id;
 };
-
-#endif

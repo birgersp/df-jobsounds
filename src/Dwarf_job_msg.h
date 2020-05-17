@@ -3,8 +3,7 @@
  * https://github.com/birgersp
  */
 
-#ifndef DWARF_JOB_MSG_H
-#define DWARF_JOB_MSG_H
+#pragma once
 
 #include "core.h"
 
@@ -15,5 +14,3 @@ struct Dwarf_job_msg
 };
 
 Dwarf_job_msg parse_dwarf_job_msg(String_ref string);
-
-#endif /* DWARF_JOB_MSG_H */
