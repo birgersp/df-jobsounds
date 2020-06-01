@@ -46,7 +46,7 @@ Vector<String> get_filenames_in_dir(String_ref dirname)
 		auto iterator = fs::directory_iterator(dirname);
 		for (auto entry : iterator)
 		{
-			result.push_back(entry.path().u8string());
+			result.push_back(entry.path().string());
 		}
 	}
 	catch (fs::__cxx11::filesystem_error error)

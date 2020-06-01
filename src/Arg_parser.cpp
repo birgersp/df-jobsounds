@@ -11,9 +11,10 @@
 
 void Arg_parser::add_command(String command, Command_callback callback, String description)
 {
-	Command command_obj;
-	command_obj.callback = callback;
-	command_obj.description = description;
+	Command command_obj = {
+		.callback = callback,
+		.description = description
+	};
 	commands.put(command, command_obj);
 }
 
